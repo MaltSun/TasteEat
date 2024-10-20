@@ -1,3 +1,9 @@
+.mainPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
 .contoureButton {
   width: 295px;
   height: 73px;
@@ -14,8 +20,8 @@
   letter-spacing: 0.2px;
 }
 .mainSection,
-.informationSection {
-  width: 1440px;
+.informationSection{
+  width: 1400px;
   padding: 20px;
   margin: 0 auto;
   display: flex;
@@ -27,6 +33,9 @@
 }
 .mainSection {
   background: #292e36;
+}
+.informationSection, .offerSection {
+  background: #fff8f5;
 }
 .mainText {
   color: #fff;
@@ -50,4 +59,45 @@
   font-weight: 400;
   line-height: 110px; /* 110% */
   letter-spacing: 0.2px;
+}
+
+.deliciousStory {
+  width: 560px;
+  color: #555;
+  font-family: "Josefin Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  letter-spacing: 0.2px;
+}
+.blockYear {
+  display: flex;
+  flex-direction: row;
+}
+.year {
+  width: 247px;
+}
+.lanterns {
+  width: 1440px;
+  margin-left: 118px;
+}
+.offerSection {
+  width: 1400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 60px;
+  margin: 0 auto;
+  
+}
+.offerText {
+  color: #292e36;
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  letter-spacing: 0.2px;
+  text-align: justify;
 }
