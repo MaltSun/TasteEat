@@ -93,10 +93,11 @@
   
 }
 .offerText {
-  color: #292e36;
+  color: #454a52;
   font-family: "Josefin Sans";
   font-style: normal;
   font-weight: 400;
+  font-size: 20px;
   line-height: 30px; /* 150% */
   letter-spacing: 0.2px;
   text-align: justify;
