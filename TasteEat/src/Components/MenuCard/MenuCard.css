@@ -1,0 +1,49 @@
+.menu-item {
+  width: 318px;
+  margin: 0 auto;
+}
+.menu-category {
+  width:1400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.menuPhoto {
+  width: 300px;
+  height: 300px;
+}
+h3 {
+  color: #292e36;
+  font-family: "Cormorant Infant";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50.4px; /* 140% */
+  letter-spacing: 0.2px;
+}
+p {
+  color: #555;
+  font-family: "Josefin Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  letter-spacing: 0.2px;
+}
+.menuCard {
+    width: 1400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+.title {
+  border-top: 2px solid #e1b168;
+  border-bottom: 2px solid #e1b168;
+  width: 120px;
+}
