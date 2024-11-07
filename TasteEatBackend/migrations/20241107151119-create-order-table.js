@@ -10,45 +10,45 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      address: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      coment: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        validate: {
-          len: [0, 240],
-          msg: "Комментарий не должен превышать 240 символов.",
-        },
-      },
-      customerId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Customer",
-          key: "id",
-        },
-      },
-      status: {
-        type: DataTypes.ENUM("pending", "completed", "canceled"), // Пример статусов
+      description: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      deliveryId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: "Deliverers",
-          key: "id",
-        },
+      price: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
       },
-      dishId: {
+      weight: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
+      category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      photo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      calories: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "Dish",
-          key: "id",
-        },
+      },
+      fat: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
+      protein: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
+      carbs: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,

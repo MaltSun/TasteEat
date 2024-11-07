@@ -31,7 +31,7 @@ module.exports = {
         allowNull: false,
       },
       photo: {
-        type: DataTypes.STRING, // Используйте STRING для хранения URL или пути к изображению
+        type: DataTypes.STRING,
         allowNull: false,
       },
       calories: {

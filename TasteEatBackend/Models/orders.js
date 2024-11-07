@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("./index");
 
 class Order extends Model {}
@@ -16,7 +16,7 @@ Order.init(
       allowNull: false,
     },
     coment: {
-      type: DataTypes.TEXT, 
+      type: DataTypes.TEXT,
       allowNull: true,
       validate: {
         len: [0, 240],
@@ -32,7 +32,7 @@ Order.init(
       },
     },
     status: {
-      type: DataTypes.ENUM("pending", "completed", "canceled"), // Пример статусов
+      type: DataTypes.ENUM("pending", "completed", "canceled"),
       allowNull: false,
     },
     deliveryId: {
@@ -40,14 +40,6 @@ Order.init(
       allowNull: true,
       references: {
         model: "Deliverers",
-        key: "id",
-      },
-    },
-    dishId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "Dish",
         key: "id",
       },
     },

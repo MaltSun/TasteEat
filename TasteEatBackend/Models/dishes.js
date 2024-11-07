@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("./index");
 
 class Dish extends Model {}
@@ -32,7 +32,7 @@ Dish.init(
       allowNull: false,
     },
     photo: {
-      type: DataTypes.STRING, // Используйте STRING для хранения URL или пути к изображению
+      type: DataTypes.STRING,
       allowNull: false,
     },
     calories: {
@@ -65,7 +65,7 @@ Dish.init(
   },
   {
     sequelize,
-    modelName: "Dish", // Название модели в единственном числе
+    modelName: "Dish",
   }
 );
 
