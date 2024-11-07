@@ -1,9 +1,9 @@
 "use strict";
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("User", {
+    await queryInterface.createTable("Deliverers", {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -18,24 +18,32 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-      },
-      role: {
-        type: DataTypes.CHAR,
-        allowNull: false,
+        validate: {
+          isEmail: true, // Проверка на корректный формат email
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [6, 100], // Минимум 6 символов
+        },
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: DataTypes.NOW,
+        onUpdate: DataTypes.NOW,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("Deliverers");
   },
 };
