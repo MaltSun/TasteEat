@@ -58,6 +58,8 @@ Order.init(
   {
     sequelize,
     modelName: "Order",
+    tableName: "Order",
+    timestamps: true,
   }
 );
 

@@ -66,6 +66,8 @@ Dish.init(
   {
     sequelize,
     modelName: "Dish",
+    tableName: "Dish",
+    timestamps: true,
   }
 );
 

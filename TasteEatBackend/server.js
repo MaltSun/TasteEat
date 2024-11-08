@@ -1,23 +1,43 @@
-const express = require('express');
-const cors = require('cors');
-const apiRoutes = require('./routes/api');
-const { sequelize } = require('./Models');
+// server.js
+const express = require("express");
+const dishRoutes = require("./Routes/dishRoutes");
+const reviewRoutes = require("./Routes/reviewRoutes");
+const orderRoutes = require("./Routes/orderRoutes");
+const cartRoutes = require("./Routes/cartRoutes");
+const deliverersRoutes = require("./Routes/deliverersRoutes");
+const customerRoutes = require("./Routes/customerRoutes");
+const authorizationRoutes = require("./Routes/authorizationRoutes");
 
 const app = express();
+const { Sequelize } = require("sequelize");
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
-
-app.use('/api', apiRoutes);
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, async () => {
-  console.log(`Server is running on port ${PORT}`);
-  try {
-    await sequelize.authenticate(); 
-    console.log('Connection to the database has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+const sequelize = new Sequelize(
+  "TasteEat",
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: "localhost",
+    dialect: "postgres",
   }
+);
+
+app.use(express.json());
+app.use("/api/dish", dishRoutes);
+app.use("/api/review", reviewRoutes);
+app.use("/api/order", orderRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/deliverers", deliverersRoutes);
+app.use("/api/customer", customerRoutes);
+app.use("/api/authorization", customerRoutes);
+
+sequelize
+  .authenticate()
+  .then(() =>
+    console.log("Connection to the database has been established successfully.")
+  )
+  .catch((err) => console.error("Unable to connect to the database:", err));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

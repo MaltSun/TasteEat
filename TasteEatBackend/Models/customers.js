@@ -20,11 +20,11 @@ Customer.init(
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true, // Проверка на корректный формат email
+        isEmail: true, 
       },
     },
     role: {
-      type: DataTypes.ENUM('user', 'admin'), // Возможные роли
+      type: DataTypes.ENUM(0, 1), 
       allowNull: false,
     },
     password: {
@@ -49,6 +49,8 @@ Customer.init(
   {
     sequelize,
     modelName: "Customer",
+    tableName: "Customer",
+    timestamps: true,
   }
 );
 

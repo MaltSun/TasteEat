@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("./index");
 
 class Cart extends Model {}
@@ -29,6 +29,11 @@ Cart.init(
       },
       index: true, // Индекс для повышения производительности
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1, // Значение по умолчанию
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -44,6 +49,8 @@ Cart.init(
   {
     sequelize,
     modelName: "Cart",
+    tableName: "Cart",
+    timestamps: true,
   }
 );
 

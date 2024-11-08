@@ -45,6 +45,8 @@ Deliverers.init(
   {
     sequelize,
     modelName: "Deliverers",
+    tableName: "Deliverers",
+    timestamps: true,
   }
 );
 
