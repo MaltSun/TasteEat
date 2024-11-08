@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"; // Импортируйте useHistory для навигации
 import "./MenuCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
@@ -9,22 +10,20 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   const [visibleItems, setVisibleItems] = useState(4);
 
   const handleMoreClick = () => {
-    setVisibleItems((prev) => prev + 4);
+    setVisibleItems((prev) => prev + 4); // Увеличиваем количество отображаемых позиций
   };
 
   const handleHideClick = () => {
-    setVisibleItems((prev) => Math.max(prev - 4, 4));
+    setVisibleItems((prev) => Math.max(prev - 4, 4)); // Уменьшаем количество до 4
   };
-  const openCard = () => {
-    //переходим на страницу определенного
-  };
+
   return (
     <div className="menuBlock">
       <h2 className="titleUnder">{title}</h2>
       <div className="menuCategory">
-        {items.slice(0, visibleItems).map((item, index) => (
+        {items.slice(0, visibleItems).map((item) => (
           <div
-            key={index}
+            key={item.id}
             className={`menuItem ${isHorizontal ? "menuItemHorizontal" : ""}`}
           >
             <div className="basketBlock">
@@ -36,7 +35,6 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
               <h3 className="title">{item.name}</h3>
               <p>{item.description}</p>
               <h3>{item.price}</h3>
-              <button onClick={openCard(item.id)}>Read more</button>
             </div>
           </div>
         ))}
@@ -64,8 +62,13 @@ const MenuCard = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
 
   useEffect(() => {
-    fetch("/Data/Menu.json")
-      .then((response) => response.json())
+    fetch("http://localhost:3000/api/dishes") // Запрос к вашему API
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((jsonData) => {
         setData(jsonData);
         setStarters(jsonData.filter((item) => item.category === "starter"));
