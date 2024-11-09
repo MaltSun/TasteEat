@@ -4,7 +4,7 @@ const OfferCard = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("/Data/thesisCard.json")
+    fetch("/Data/OfferCard.json")
       .then((response) => response.json())
       .then((jsonData) => setData(jsonData))
       .catch((error) => console.error("Error fetching data:", error));
@@ -13,7 +13,7 @@ const OfferCard = () => {
     <div className="offerCardBlock">
       {data.map((item, index) => (
         <div className="offerCard" key={index}>
-          <img>{item.offerPhoto}</img>
+          <img src={item.offerPhoto}></img>
           <h3>{item.h3}</h3>
         </div>
       ))}
