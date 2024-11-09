@@ -1,15 +1,14 @@
 [
-    {
-      "offerPhoto": "./Images/Vector (1).svg",
-      "h3": "Opened 24/7"
-    },
-    {
-        "offerPhoto": "./Images/Vector (1).svg",
-        "h3": "Special Menus"
-      },
-      {
-        "offerPhoto": "./Images/Vector (1).svg",
-        "h3": "Home Delivery"
-      }
-  ]
-  
+  {
+    "offerPhoto": "./Images/OfferCard1.png",
+    "h3": "Opened 24/7"
+  },
+  {
+    "offerPhoto": "./Images/OfferCard2.png",
+    "h3": "Special Menus"
+  },
+  {
+    "offerPhoto": "./Images/OfferCard3.png",
+    "h3": "Home Delivery"
+  }
+]
