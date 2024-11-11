@@ -7,6 +7,7 @@ const cartRoutes = require("./Routes/cartRoutes");
 const deliverersRoutes = require("./Routes/deliverersRoutes");
 const customerRoutes = require("./Routes/customerRoutes");
 const authorizationRoutes = require("./Routes/authorizationRoutes");
+const cors = require('cors'); 
 
 const app = express();
 const { Sequelize } = require("sequelize");
@@ -22,6 +23,12 @@ const sequelize = new Sequelize(
   }
 );
 
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true 
+}));
+
 app.use(express.json());
 app.use("/api/dish", dishRoutes);
 app.use("/api/review", reviewRoutes);
@@ -29,7 +36,7 @@ app.use("/api/order", orderRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/deliverers", deliverersRoutes);
 app.use("/api/customer", customerRoutes);
-app.use("/api/authorization", customerRoutes);
+app.use("/api/authorization", authorizationRoutes);
 
 sequelize
   .authenticate()

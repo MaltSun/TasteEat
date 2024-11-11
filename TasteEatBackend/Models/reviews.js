@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
 const { sequelize } = require("./index");
-
+const Customer = require("./customers");
 class Review extends Model {}
 
 Review.init(
@@ -11,20 +11,14 @@ Review.init(
       primaryKey: true,
       allowNull: false,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "Customer",
-        key: "id",
-      },
-    },
     coment: {
-      type: DataTypes.TEXT, // Используем TEXT для текстовых комментариев
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [0, 240],
-        msg: "Комментарий не должен превышать 240 символов.",
+        len: {
+          args: [0, 240],
+          msg: "Комментарий не должен превышать 240 символов.",
+        },
       },
     },
     createdAt: {
@@ -38,6 +32,14 @@ Review.init(
       defaultValue: DataTypes.NOW,
       onUpdate: DataTypes.NOW,
     },
+    customerId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Customer,
+        key: "id",
+      },
+      allowNull: true,
+    },
   },
   {
     sequelize,
@@ -46,5 +48,6 @@ Review.init(
     timestamps: true,
   }
 );
-
+Review.belongsTo(Customer, { foreignKey: "customerId" });
+Customer.hasMany(Review, { foreignKey: "customerId" });
 module.exports = Review;
