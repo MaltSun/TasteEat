@@ -3,7 +3,8 @@ import Header from "../../Components/Header/Header";
 import "./MainPage.css";
 import ThesisCard from "../../Components/ThesisCard/ThesisCard";
 import OfferCard from "../../Components/OfferCard/OfferCard";
-import Footer from "../../Components/Footer/Footer"
+import Footer from "../../Components/Footer/Footer";
+import { Link } from "react-router-dom";
 const MainPage = () => {
   return (
     <div className="mainPage">
@@ -15,7 +16,9 @@ const MainPage = () => {
             The people, food and the prime locations make the perfect place good
             friends & family to come together and have great time.
           </p>
-          <button className="contoureButton">View Menu</button>
+          <button className="contoureButton">
+            <Link to={{ pathname: "/menu" }}>View Menu</Link>
+          </button>
         </div>
         <img src="./Images/MainPhoto.png" alt=""></img>
       </section>
@@ -52,9 +55,9 @@ const MainPage = () => {
             room away from your home. food takes the spotlight as guests.
           </p>
         </div>
-        <OfferCard/>
+        <OfferCard />
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
