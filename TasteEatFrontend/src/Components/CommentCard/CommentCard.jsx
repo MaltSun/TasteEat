@@ -1,0 +1,54 @@
+import React, { useState } from "react";
+import "./CommentCard.css";
+
+const CommentCard = () => {
+  const [coment, setComment] = useState("");
+  const [error, setError] = useState(null); 
+  let userId = 0;
+
+  const sendMessage = () => {
+    fetch("http://localhost:3000/api/review/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, coment }), 
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Сетевая ошибка: ответ не был успешным");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Комментарий отправлен:", data);
+        setComment(""); 
+        setError(null); 
+      })
+      .catch((error) => {
+        console.error("Ошибка при отправке данных:", error);
+        setError(error.message); 
+      });
+  };
+
+  return (
+    <div className="comment">
+      <img src="" alt="photo" />
+
+      <input
+        className="reviewText"
+        placeholder="Write A Message"
+        type="text"
+        value={coment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+
+      <button onClick={sendMessage} className="filleadButton">
+       Send
+      </button>
+
+    </div>
+  );
+};
+
+export default CommentCard;
