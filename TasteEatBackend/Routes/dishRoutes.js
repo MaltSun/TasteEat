@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const dishController = require("../Controllers/dishController");
 
-router.get("/", dishController.getAllDishes); 
+router.get("/resource", dishController.getAllDishes); 
 router.post("/new", dishController.createDish); 
 router.get("/id/:id", dishController.getDishById); 
 router.get("/name/:name", dishController.getDishByName); 
