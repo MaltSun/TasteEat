@@ -1,0 +1,85 @@
+.cartComponent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+    background: #fff8f5;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 10px 5px 5px rgba(97, 74, 65, 0.4);
+    margin: 10px;
+  }
+  
+  .cartComponent img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; 
+  }
+  
+  .cartComponent button {
+    width: 40px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 5px 5px 5px rgba(97, 74, 65, 0.4);
+    background: rgba(225, 177, 104, 0.5);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer; /* Change cursor on hover */
+  }
+  
+  .cartComponent button:active {
+    background: rgba(75, 53, 21, 0.5);
+    transition: 0.3s ease; 
+  }
+  
+  .cartComponent button:hover {
+    background: rgba(225, 177, 104, 0.76);
+    transition: 0.3s ease; 
+  }
+  
+  .price {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  .cartComponent input {
+    width: 40px;
+    height: 40px;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+  }
+  
+  .quantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .deleteIcon {
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .deleteIcon:hover {
+    color: red;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .cartComponent {
+      flex-direction: column; 
+      align-items: flex-start; 
+      text-align: left; 
+    }
+  
+    .quantity {
+      justify-content: center; 
+      margin-top: 10px; 
+    }
+  
+    .price {
+      margin-top: 10px; 
+    }
+  }
