@@ -1,0 +1,140 @@
+/* * {
+  min-width: 320px;
+} */
+.cartPage {
+  display: flex;
+  flex-direction: column;
+
+  width: 1400px;
+  padding: 20px;
+  margin: 0 auto;
+}
+.emptyCart {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff8f5;
+}
+.emptyCart h1,
+.emptyCart p {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  color: #292e36;
+}
+.emptyCart h1 {
+  letter-spacing: 0.7px;
+  margin-top: 0px;
+  margin-bottom: 0;
+}
+.emptyCart p {
+  margin-top: 0;
+}
+
+.fullCart {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0px;
+}
+.position {
+  width: 75%;
+  justify-content: center;
+}
+
+.fullPrice button {
+  width: 80%;
+  margin-bottom: 20px;
+  border: none;
+  background: #e1b168;
+  color: #292e36;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Josefin Sans";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 150% */
+  letter-spacing: 0.2px;
+}
+
+.fullPrice button:hover {
+  background: #e1b16886;
+  transition: 0.3s ease;
+}
+
+.fullPrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 22%;
+  max-height: 230px;
+
+  background: #fff8f5;
+  box-shadow: 10px 5px 5px #614a4167;
+}
+.fullPrice p {
+  text-align: justify;
+  font-weight: 800;
+  font-size: 35px;
+}
+.fullPrice div {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  gap: 10px;
+}
+.fullPrice input {
+  width: 20px;
+  height: 20px;
+}
+.littleBlock {
+  width: 45%;
+  min-height: 191px;
+  background: #fff8f5;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 10px 5px 5px #614a4167;
+}
+.parentBlock {
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+@media screen and (max-width: 1438px) {
+  .cartPage,
+  .emptyCart {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1349px) {
+  .littleBlock {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1039px) {
+  .fullCart {
+    flex-direction: column;
+  }
+  .fullPrice,
+  .position {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 360px) {
+  .emptyCart {
+    padding: 20px 8px;
+    justify-content: flex-start;
+  }
+}
