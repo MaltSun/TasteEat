@@ -1,0 +1,53 @@
+.orders {
+  width: 100%;
+}
+.orderCard {
+  width: 250px;
+  display: flex;
+  background: #c6ab8224;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  box-shadow: 10px 5px 5px #9a867eaf;
+  border-radius: 15px;
+}
+.orderCard:hover {
+  transform: scale(1.02);
+}
+.orderCard img {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  border-radius: 15px;
+}
+.orderCard div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+.orderCard div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+.orderCard h2 {
+  font-size: 25px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.orderCard p {
+  font-size: 20px;
+  font-weight: 500;
+}
+.orderBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
