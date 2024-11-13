@@ -23,8 +23,9 @@ router.put("/accept/:id", orderController.acceptOrder);
 // Завершить заказ
 router.put("/complete/:id", orderController.completeOrder);
 
-// Получить завершенные заказы для конкретного клиента
 router.get("/completed/customer/:customerId", orderController.getCompletedOrdersByCustomerId);
+
+router.get("/uncompleted/customer/:customerId", orderController.getNotCompletedOrdersByCustomerId);
 
 // Получить завершенные заказы для конкретного доставщика
 router.get("/completed/deliverer/:delivererId", orderController.getCompletedOrdersByDelivererId);

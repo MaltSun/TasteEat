@@ -145,7 +145,55 @@ exports.completeOrder = async (req, res) => {
 
 // Пример функций для получения завершенных заказов
 exports.getCompletedOrdersByCustomerId = async (req, res) => {
-  // Реализуйте эту функцию в зависимости от вашей логики
+  const { customerId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        customerId: customerId,
+        status: "completed", 
+      },
+      include: [{ model: Dish, through: { attributes: ["quantity"] } }],
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
+  const { customerId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        customerId: customerId,
+        status: "pending",  // Убедитесь, что статус установлен на "pending"
+      },
+      include: [
+        {
+          model: Dish,
+          through: {
+            attributes: ["quantity"],  // Получаем количество из связной таблицы
+          },
+        },
+      ],
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);  // Логирование ошибки
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.getCompletedOrdersByDelivererId = async (req, res) => {
