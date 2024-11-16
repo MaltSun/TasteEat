@@ -23,7 +23,7 @@ const MenuPage = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [view, setView] = useState("list");
   const [category, setCategory] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 100]); // Предполагаем, что цена от 0 до 100
+  const [priceRange, setPriceRange] = useState([0, 100]);
 
   const handleChangeView = (event, newView) => {
     if (newView !== null) {
@@ -77,7 +77,7 @@ const MenuPage = () => {
               onChange={handlePriceChange}
               valueLabelDisplay="auto"
               min={0}
-              max={100} // Измените максимальное значение на нужное вам
+              max={100}
               style={{ width: "300px", marginLeft: "20px" }}
             />
           </MenuItem>

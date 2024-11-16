@@ -3,15 +3,15 @@ import "./SaleCard.css";
 
 const SaleCard = () => {
   const [data, setData] = useState([]);
-  const [randomImage, setRandomImage] = useState(null); // для хранения случайного изображения
-  const [showPopup, setShowPopup] = useState(true); // состояние для отображения всплывающего окна
+  const [randomImage, setRandomImage] = useState(null); 
+  const [showPopup, setShowPopup] = useState(true); 
 
   useEffect(() => {
     fetch("/Data/SaleCard.json")
       .then((response) => response.json())
       .then((jsonData) => {
         setData(jsonData);
-        const randomIndex = Math.floor(Math.random() * jsonData.length); // выбор случайного индекса
+        const randomIndex = Math.floor(Math.random() * jsonData.length); 
         setRandomImage(jsonData[randomIndex]); 
       })
       .catch((error) => console.error("Error fetching data:", error));

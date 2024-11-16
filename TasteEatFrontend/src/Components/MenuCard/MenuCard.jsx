@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./MenuCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
