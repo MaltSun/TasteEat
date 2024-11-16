@@ -28,3 +28,23 @@
   line-height: 30px; /* 150% */
   letter-spacing: 0.2px;
 }
+@media screen and (max-width: 1438px) {
+  .thesisSection {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 920px) {
+  .thesisCard {
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 730px) {
+  .thesisSection {
+    width: 100%;
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+}
