@@ -6,26 +6,31 @@ import OrderPage from "./Pages/OrderPage/OrderPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import AdminPage from "./Pages/AdminPage/AdminPage";
-import CartPage from "./Pages/CartPage/CartPage"
+import CartPage from "./Pages/CartPage/CartPage";
+import Registration from "./Pages/Registration/Registration";
+import Authorization from "./Pages/Authorization/Authorization";
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+   
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage/>} />
-          <Route path="/menu" element={<MenuPage/>} />
-          <Route path="/order" element={<OrderPage/>} />
-          <Route path="/delivery" element={<DeliveryPage/>} />
-          <Route path="/profile" element={<ProfilePage/>} />
-          <Route path="/admin" element={<AdminPage/>} />
-          <Route path="/cart" element={<CartPage/>} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/delivery" element={<DeliveryPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<Authorization/>} />
         </Routes>
       </BrowserRouter>
     </>
   );
 }
-
 
 export default App;
