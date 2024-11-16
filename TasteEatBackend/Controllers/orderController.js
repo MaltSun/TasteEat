@@ -1,6 +1,7 @@
 const Order = require("../Models/orders");
 const OrderDish = require("../Models/orderDish");
 const Dish = require("../Models/dishes");
+const Deliverers = require("../Models/deliverers");
 
 // Функция для создания заказа
 exports.createOrder = async (req, res) => {
@@ -71,7 +72,6 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
-// Функция для обновления заказа
 exports.updateOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -99,7 +99,6 @@ exports.updateOrder = async (req, res) => {
   }
 };
 
-// Функция для удаления заказа
 exports.deleteOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -113,7 +112,6 @@ exports.deleteOrder = async (req, res) => {
   }
 };
 
-// Пример функции для принятия заказа
 exports.acceptOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -128,7 +126,6 @@ exports.acceptOrder = async (req, res) => {
   }
 };
 
-// Пример функции для завершения заказа
 exports.completeOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -143,7 +140,6 @@ exports.completeOrder = async (req, res) => {
   }
 };
 
-// Пример функций для получения завершенных заказов
 exports.getCompletedOrdersByCustomerId = async (req, res) => {
   const { customerId } = req.params;
 
@@ -151,9 +147,23 @@ exports.getCompletedOrdersByCustomerId = async (req, res) => {
     const orders = await Order.findAll({
       where: {
         customerId: customerId,
-        status: "completed", 
+        status: "completed",  
       },
-      include: [{ model: Dish, through: { attributes: ["quantity"] } }],
+      // include: [
+      //   {
+      //     model: Dish,
+      //     through: {
+      //       attributes: ["quantity"],  
+      //     },
+      //   },
+      //   {
+      //     model: Deliverers,
+      //     through: {
+      //       attributes: ["username"],  
+      //     },
+      //   },
+       
+      // ],
     });
 
     if (!orders.length) {
@@ -162,6 +172,7 @@ exports.getCompletedOrdersByCustomerId = async (req, res) => {
 
     res.status(200).json(orders);
   } catch (error) {
+    console.error(error); 
     res.status(500).json({ error: error.message });
   }
 };
@@ -173,13 +184,13 @@ exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
     const orders = await Order.findAll({
       where: {
         customerId: customerId,
-        status: "pending",  // Убедитесь, что статус установлен на "pending"
+        status: "pending",  
       },
       include: [
         {
           model: Dish,
           through: {
-            attributes: ["quantity"],  // Получаем количество из связной таблицы
+            attributes: ["quantity"],  
           },
         },
       ],
@@ -191,7 +202,7 @@ exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
 
     res.status(200).json(orders);
   } catch (error) {
-    console.error(error);  // Логирование ошибки
+    console.error(error); 
     res.status(500).json({ error: error.message });
   }
 };

@@ -58,7 +58,7 @@ exports.deleteDish = async (req, res) => {
       where: { id: req.params.id },
     });
     if (!deleted) return res.status(404).json({ error: "Dish not found" });
-    res.status(204).send(); // Возвращаем статус 204 (No Content)
+    res.status(204).send(); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
