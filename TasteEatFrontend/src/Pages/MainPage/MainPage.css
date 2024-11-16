@@ -4,6 +4,7 @@
   justify-content: center;
   margin: 0 auto;
 }
+
 .contoureButton {
   width: 295px;
   height: 73px;
@@ -20,7 +21,7 @@
   letter-spacing: 0.2px;
 }
 .mainSection,
-.informationSection{
+.informationSection {
   width: 1400px;
   padding: 20px;
   margin: 0 auto;
@@ -34,7 +35,8 @@
 .mainSection {
   background: #292e36;
 }
-.informationSection, .offerSection {
+.informationSection,
+.offerSection {
   background: #fff8f5;
 }
 .mainText {
@@ -90,7 +92,6 @@
   justify-content: center;
   gap: 60px;
   margin: 0 auto;
-  
 }
 .offerText {
   color: #454a52;
@@ -101,4 +102,49 @@
   line-height: 30px; /* 150% */
   letter-spacing: 0.2px;
   text-align: justify;
+}
+@media screen and (max-width: 1438px) {
+  .mainSection,
+  .informationSection {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .lanterns {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1438px) {
+  .informationSection img {
+    display: none;
+  }
+  .deliciousStory {
+    flex-direction: row;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .offerSection {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .mainSection img {
+    display: none;
+  }
+  .mainSection, .offerSection, .informationSection{
+    justify-content: flex-start;
+    padding: 20px 8px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .blockYear {
+    flex-direction: column;
+    text-align: justify;
+  }
+  .mainH {
+    font-size: 60px;
+  }
+  .year {
+    width: 90%;
+  }
 }

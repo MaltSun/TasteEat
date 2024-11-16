@@ -13,28 +13,31 @@ const ProfileComponent = () => {
 
   return (
     <div className="profileComponent">
-      <div className="imageBlock">
-        <img className="profileImage" src="./Images/ProfileImage.png"></img>
-        <button className="contoureButton ">Change profile</button>
+      <div className="profileBlock">
+        <div className="imageBlock">
+          <img className="profileImage" src="./Images/ProfileImage.png"></img>
+          <button className="contoureButton ">Change profile</button>
+        </div>
+        <div className="informationBlock">
+          <div className="smallInformationBlock">
+            <p className="smallText">Username</p>
+            <p className="bigText">meow meow</p>
+          </div>
+          <div>
+            <p className="smallText">Address</p>
+            <p className="bigText">jjhhhhhhhhhhhhhhjjjj</p>
+          </div>
+          <div>
+            <p className="smallText">Email</p>
+            <p className="bigText">jjjjjjjjjjjjjjjj</p>
+          </div>
+          <div>
+            <p className="smallText">Card</p>
+            <p className="bigText">kkkkjjjjjjjjjjjk</p>
+          </div>
+        </div>
       </div>
-      <div className="informationBlock">
-        <div className="smallInformationBlock">
-          <p className="smallText">Username</p>
-          <p className="bigText">meow meow</p>
-        </div>
-        <div>
-          <p className="smallText">Address</p>
-          <p className="bigText">jjhhhhhhhhhhhhhhjjjj</p>
-        </div>
-        <div>
-          <p className="smallText">Email</p>
-          <p className="bigText">jjjjjjjjjjjjjjjj</p>
-        </div>
-        <div>
-          <p className="smallText">Card</p>
-          <p className="bigText">kkkkjjjjjjjjjjjk</p>
-        </div>
-      </div>
+
       <div className="emailBlock">
         <div>
           <p className="smallText">Need help?</p>

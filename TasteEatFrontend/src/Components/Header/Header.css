@@ -36,7 +36,7 @@ button {
 .contoureButton:hover,
 .filleadButton:hover {
   transition: 0.3s ease;
-  background: #bb9863a4;
+  background: #56401fa4;
 }
 .headerSection {
   margin: 0 auto;
@@ -101,10 +101,13 @@ button {
   .logoSection img {
     width: 290px;
   }
+}
+@media screen and (max-width: 330px) {
   .headerSection {
-    padding: 20px 0px;
+    padding: 20px 10px;
   }
 }
+
 @font-face {
   font-family: "Josefin Sans";
   src: url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
