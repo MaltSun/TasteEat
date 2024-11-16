@@ -20,14 +20,14 @@ Deliverers.init(
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true, // Проверка на корректный формат email
+        isEmail: true, 
       },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6, 100], // Минимум 6 символов
+        len: [6, 100], 
       },
     },
     createdAt: {

@@ -24,14 +24,14 @@ Customer.init(
       },
     },
     role: {
-      type: DataTypes.ENUM(0, 1), 
+      type: DataTypes.ENUM("user", "admin"), 
       allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6, 100], // Минимум 6 символов
+        len: [6, 100], 
       },
     },
     createdAt: {

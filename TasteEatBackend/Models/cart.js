@@ -1,16 +1,11 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("./index");
-
+const Customer = require("./customers"); 
+const Dish = require("./dishes"); 
 class Cart extends Model {}
 
 Cart.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false,
-    },
+  {    
     customerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -18,21 +13,19 @@ Cart.init(
         model: "Customer",
         key: "id",
       },
-      index: true, // Индекс для повышения производительности
+      index: true,
     },
     dishId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        model: "Dish",
+        model: Dish,
         key: "id",
       },
-      index: true, // Индекс для повышения производительности
+      onDelete: "CASCADE",
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1, // Значение по умолчанию
+      defaultValue: 1,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -53,5 +46,7 @@ Cart.init(
     timestamps: true,
   }
 );
+Customer.belongsToMany(Dish, { through: Cart, foreignKey: "customerId" });
+Dish.belongsToMany(Customer, { through: Cart, foreignKey: "dishId" });
 
 module.exports = Cart;

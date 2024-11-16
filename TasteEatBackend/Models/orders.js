@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("./index");
+const Customer = require("./customers");
+
 
 class Order extends Model {}
 
@@ -62,5 +64,6 @@ Order.init(
     timestamps: true,
   }
 );
-
+Order.belongsTo(Customer, { foreignKey: "customerId" });
+Customer.hasMany(Order, { foreignKey: "customerId" });
 module.exports = Order;

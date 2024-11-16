@@ -36,7 +36,6 @@ OrderDish.init(
   }
 );
 
-// Устанавливаем ассоциации
 Order.belongsToMany(Dish, { through: OrderDish, foreignKey: "orderId" });
 Dish.belongsToMany(Order, { through: OrderDish, foreignKey: "dishId" });
 

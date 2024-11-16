@@ -5,10 +5,10 @@ module.exports = {
     await queryInterface.addColumn('Review', 'customerId', {
       type: Sequelize.INTEGER,
       references: {
-        model: 'Customer', // Имя таблицы, с которой будет связь
+        model: 'Customer', 
         key: 'id',
       },
-      allowNull: true, // Разрешить null для поля customerId
+      allowNull: true, 
     });
   },
 
