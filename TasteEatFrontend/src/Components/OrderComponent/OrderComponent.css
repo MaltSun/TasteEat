@@ -1,5 +1,8 @@
 .orders {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .orderCard {
   width: 250px;
@@ -50,4 +53,9 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+@media screen and (max-width: 860px) {
+  .orderBlock{
+   justify-content: center;
+  }
+ }
 
