@@ -1,8 +1,8 @@
-import React from "react";
+import { React } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../../Store/authSlice";
+import { setCredentials } from "../../Store/authStore";
 import { useNavigate } from "react-router-dom";
-
+//import "./Authorixation.css";
 const Authorization = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,15 +26,21 @@ const Authorization = () => {
       alert(data.error || "Authorization failed");
     } else {
       console.log("Authorization successful!");
-      const { id, role } = data;
-      dispatch(setCredentials({ email, password, userId: id, role }));
-      if (role === "customer") {
+      const { id, role } = data.user;
+
+      if (role == "customer") {
         navigate("/profile");
-      } else if (role === "deliverer") {
+      } else if (role == "deliverer") {
         navigate("/delivery");
-      } else {
-        navigate("/admin");
       }
+      // else {
+      //   navigate("/admin");
+      // }
+      dispatch(setCredentials({ email, password, userId: id, role }));
+      dbCartItems.forEach((item) => {
+        dispatch(addItemToCart(item));
+      });
+      dispatch(clearCart());
     }
   };
 
