@@ -96,11 +96,23 @@
 }
 .littleBlock {
   width: 45%;
-  min-height: 191px;
+  min-height: 135px;
   background: #fff8f5;
   padding: 20px;
   border-radius: 25px;
   box-shadow: 10px 5px 5px #614a4167;
+}
+.littleBlock a {
+  font-size: 20px;
+  color: #292e36;
+}
+.littleBlock a b {
+  color: #e1b168;;
+}
+.littleBlock a:hover b {
+  color: #917955;
+  text-shadow: #614a41a7 3px 0 10px;
+  transition: 0.3s ease;
 }
 .parentBlock {
   display: flex;

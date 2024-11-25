@@ -71,8 +71,8 @@ exports.getCartItems = async (req, res) => {
 
 exports.checkout = async (req, res) => {
   try {
-    const { customerId } = req.body;
-
+    const { customerId } = req.params;
+    
     await Cart.destroy({ where: { customerId } });
 
     res.status(200).json({ message: "Checkout successful, cart cleared." });

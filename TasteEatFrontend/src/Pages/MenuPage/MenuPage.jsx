@@ -16,8 +16,6 @@ import {
   Slider,
   Typography,
 } from "@mui/material";
-import ViewListIcon from "@mui/icons-material/ViewList";
-import ViewModuleIcon from "@mui/icons-material/ViewModule";
 
 const MenuPage = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);

@@ -5,8 +5,26 @@ import ThesisCard from "../../Components/ThesisCard/ThesisCard";
 import OfferCard from "../../Components/OfferCard/OfferCard";
 import Footer from "../../Components/Footer/Footer";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { clearCredentials } from "../../Store/authStore";
+
 const MainPage = () => {
-  return (
+  const dispatch = useDispatch();
+ useEffect(() => {
+      const handleBeforeUnload = () => {
+        dispatch(clearCredentials());
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }, [dispatch]);
+
+  return (  
+
     <div className="mainPage">
       <Header />
       <section className="mainSection">

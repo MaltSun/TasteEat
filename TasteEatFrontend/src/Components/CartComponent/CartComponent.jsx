@@ -1,44 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  selectCartItems,
+  deleteFromCart,
+} from "../../Store/cartStore";
 import "./CartComponent.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const CartComponent = () => {
-  const [quantity, setQuantity] = useState(1);
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
-  const handleIncrease = () => {
-    setQuantity(prev => prev + 1);
+  const handleIncrease = (item) => {
+    dispatch(increaseQuantity(item.id));
   };
 
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
+  const handleDecrease = (item) => {
+    if (item.quantity == 1) {
+      dispatch(deleteFromCart(item.id));
+    } else {
+      dispatch(decreaseQuantity(item.id));
     }
   };
-
+  const deleteItem = (itemId) => {
+    dispatch(deleteFromCart(itemId));
+  };
   return (
-    <div className="cartComponent">
-      <img 
-        src="/Images/Starter2.png" 
-        alt="Starter Dish" 
-      />
-      <div>
-        <h2>Name</h2>
-        <p>description bbbbbb kbkbkbkb bbbb </p>
-        <DeleteOutlineOutlinedIcon 
-          className="deleteIcon" 
-          onClick={() => {}} 
-        />
-      </div>
-      <div className="quantity">
-        <button onClick={handleDecrease}>-</button>
-        <input 
-          type="number" 
-          value={quantity} 
-          readOnly 
-        />
-        <button onClick={handleIncrease}>+</button>
-      </div>
-      <div className="price">${(4.99 * quantity).toFixed(2)}</div>
+    <div>
+      {cartItems.map((item) => (
+        <div key={item.id} className="cartComponent">
+          <img src={item.photo} alt={item.name} />
+          <div>
+            <h2>{item.name}</h2>
+            <p>{item.description}</p>
+            <button onClick={() => deleteItem(item.id)}>
+              <DeleteOutlineOutlinedIcon className="deleteIcon" />
+            </button>
+          </div>
+          <div className="quantity">
+            <button onClick={() => handleIncrease(item)}>+</button>
+            <span>{item.quantity}</span>
+            <button onClick={() => handleDecrease(item)}>-</button>
+          </div>
+          <div className="price">
+            ${(item.price * item.quantity).toFixed(2)}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

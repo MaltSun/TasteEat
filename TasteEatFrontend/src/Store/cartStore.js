@@ -54,8 +54,5 @@ export const {
   decreaseQuantity,
 } = cartStore.actions;
 export const selectCartItems = (state) => state.cart.items;
-// export const selectQuantity = (state, id) => {
-//   const item = state.cart.items.find((item) => item.id === id);
-//   return item ? item.quantity : 0;
-// };
+
 export default cartStore.reducer;
