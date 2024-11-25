@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserId, selectUserRole } from "../../Store/authStore";
 import "./OldOrderComponent.css";
+
 const OldOrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
+  const userId = useSelector(selectUserId);
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/completed/customer/2`
+          `http://localhost:3000/api/order/completed/customer/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");

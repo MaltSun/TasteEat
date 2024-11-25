@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./OrderComponent.css";
+import { useSelector } from "react-redux";
+import { selectUserId, selectUserRole } from "../../Store/authStore";
 
 const OrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
+  const userId = useSelector(selectUserId);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
+      
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/uncompleted/customer/3`
+          `http://localhost:3000/api/order/uncompleted/customer/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");
@@ -48,7 +52,6 @@ const OrderComponent = ({ customerId }) => {
       <div>
         <h2>
           Total Price $
-          
           {orders
             .reduce(
               (total, order) =>
