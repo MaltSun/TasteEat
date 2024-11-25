@@ -13,11 +13,13 @@
   padding: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: felx-start;
+  justify-content: flex-start;
   gap: 30px;
   flex-wrap: wrap;
 }
-
+.textMenu {
+  height: 200px;
+}
 .menuPhoto {
   width: 300px;
   height: 300px;
