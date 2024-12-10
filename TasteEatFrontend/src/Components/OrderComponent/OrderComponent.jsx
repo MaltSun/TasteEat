@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./OrderComponent.css";
-import { useSelector } from "react-redux";
-import { selectUserId, selectUserRole } from "../../Store/authStore";
 
 const OrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
-  const userId = useSelector(selectUserId);
+  const userId = sessionStorage.getItem('userId'); // Changed to sessionStorage
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
-      
+      if (!userId) {
+        console.error("User ID not found in sessionStorage");
+        return;
+      }
+
       try {
         const response = await fetch(
           `http://localhost:3000/api/order/uncompleted/customer/${userId}`
@@ -25,7 +27,7 @@ const OrderComponent = ({ customerId }) => {
     };
 
     fetchOrderDetails();
-  }, [customerId]);
+  }, [customerId, userId]); 
 
   return (
     <div className="orders">
@@ -45,7 +47,7 @@ const OrderComponent = ({ customerId }) => {
           </div>
         ))
       ) : (
-        <p>Нет завершенных заказов.</p>
+        <p>Нет незавершенных заказов.</p> 
       )}
 
       <hr />
