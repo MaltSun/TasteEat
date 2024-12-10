@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainPage from "./Pages/MainPage/MainPage";
+import {  useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MenuPage from "./Pages/MenuPage/MenuPage";
 import OrderPage from "./Pages/OrderPage/OrderPage";
@@ -9,13 +10,27 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import CartPage from "./Pages/CartPage/CartPage";
 import Registration from "./Pages/Registration/Registration";
 import Authorization from "./Pages/Authorization/Authorization";
+import { clearCredentials } from './Store/authStore';
 
 function App() {
   const [count, setCount] = useState(0);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      dispatch(clearCredentials());
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [dispatch]);
+
   return (
     <>
-   
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -25,8 +40,8 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/login" element={<Authorization/>} />
+          <Route path="/reg" element={<Registration />} />
+          <Route path="/login" element={<Authorization />} />
         </Routes>
       </BrowserRouter>
     </>

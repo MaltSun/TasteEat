@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Registration.css";
 import { Select, MenuItem } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Registration = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
 
+  const navigate = useNavigate();
+  
   const handleCategoryChange = (event) => {
     setRole(event.target.value);
   };
@@ -19,49 +22,90 @@ const Registration = () => {
       return;
     }
 
-    const response = await fetch("http://localhost:3000/api/authorization/register", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: username, password, role, email })
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/authorization/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password, role, email }),
+      }
+    );
 
     const data = await response.json();
     if (!response.ok) {
       alert(data.error || "Registration failed");
+
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("role", role);
+      sessionStorage.setItem("email", email);
     } else {
-      alert("Registration successful!");
+      console.log("Registration successful!");
+      navigate("/");
     }
   };
 
   return (
-    <div>
-      <label>Username</label>
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Create Username" />
-      
-      <label>E-mail</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Input Your E-mail" />
-      
-      <label>Password</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter A password" />
-      
-      <label>Confirm password</label>
-      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repeat A password" />
-      
-      <Select
-        value={role}
-        onChange={handleCategoryChange}
-        displayEmpty
-        style={{ marginLeft: "10px", minWidth: "120px" }}
-      >
-        <MenuItem value="customer">Customer</MenuItem>
-        <MenuItem value="deliverer">Deliverer</MenuItem>
-      </Select>
-      
-      <input type="checkbox" required />
-      <label>Agree to terms</label>
-      <button onClick={handleRegistration}>Register</button>
+    <div className="registration">
+      <div>
+        <h1>Registration</h1>
+        <span>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Create Username"
+          />
+
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Input Your E-mail"
+          />
+        </span>
+        <span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter A password"
+          />
+
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Repeat A password"
+          />
+        </span>
+
+        <Select
+          value={role}
+          onChange={handleCategoryChange}
+          displayEmpty
+          style={{
+            minWidth: "120px",
+            height: "73px",
+            width: "70%",
+            background: "rgba(88, 105, 132, 0.822)",
+          }}
+        >
+          <MenuItem value="user">Customer</MenuItem>
+          <MenuItem value="deliverer">Deliverer</MenuItem>
+        </Select>
+
+        <span>
+          
+          <Link className="contoureButton" to={"/login"}>
+            back To Authorization
+          </Link>
+          <button className="contoureButton" onClick={handleRegistration}>
+            Register
+          </button>
+        </span>
+      </div>
     </div>
   );
 };

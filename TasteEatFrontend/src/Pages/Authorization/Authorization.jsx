@@ -2,7 +2,9 @@ import { React } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../Store/authStore";
 import { useNavigate } from "react-router-dom";
-//import "./Authorixation.css";
+import { Link } from "react-router-dom";
+import "./Authorization.css";
+
 const Authorization = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,46 +28,62 @@ const Authorization = () => {
       alert(data.error || "Authorization failed");
     } else {
       console.log("Authorization successful!");
-      const { id, role } = data.user;
+      const { id, role, token } = data.user;
 
-      if (role == "customer") {
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("role", role);
+      sessionStorage.setItem("userId", id);
+      sessionStorage.setItem("email", email);
+
+      if (role === "user") {
         navigate("/profile");
-      } else if (role == "deliverer") {
+      } else if (role === "admin") {
+        navigate("/admin");
+      } else {
         navigate("/delivery");
       }
-      // else {
-      //   navigate("/admin");
-      // }
+
       dispatch(setCredentials({ email, password, userId: id, role }));
-      dbCartItems.forEach((item) => {
-        dispatch(addItemToCart(item));
-      });
-      dispatch(clearCart());
+
+      // dbCartItems.forEach((item) => {
+      //   dispatch(addItemToCart(item));
+      // });
+      // dispatch(clearCredentials());
     }
   };
 
   return (
-    <div>
-      <label>E-mail</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) =>
-          dispatch(setCredentials({ email: e.target.value, password }))
-        }
-        placeholder="Input Your E-mail"
-      />
+    <div className="authorization">
+      <div>
+        <h1>Authorization</h1>
+        <label>E-mail</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) =>
+            dispatch(setCredentials({ email: e.target.value, password }))
+          }
+          placeholder="Input Your E-mail"
+        />
 
-      <label>Password</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) =>
-          dispatch(setCredentials({ email, password: e.target.value }))
-        }
-        placeholder="Enter A password"
-      />
-      <button onClick={handleAuthorization}>Send</button>
+        <label>Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) =>
+            dispatch(setCredentials({ email, password: e.target.value }))
+          }
+          placeholder="Enter A password"
+        />
+        <span>
+          <Link className="contoureButton" to={"/reg"}>
+            Go To Registration
+          </Link>
+          <button className="contoureButton" onClick={handleAuthorization}>
+            Send
+          </button>
+        </span>
+      </div>
     </div>
   );
 };

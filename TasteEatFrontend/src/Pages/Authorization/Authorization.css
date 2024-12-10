@@ -1,0 +1,40 @@
+.authorization {
+  width: 1400px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-image: url("../public/Images/loginFone.png");
+  background-size: cover;
+}
+@media screen and (max-width: 1438px) {
+  .authorization {
+    width: 100%;
+  }
+}
+.authorization label {
+  font-size: 22px;
+  font-weight: 600;
+  color: antiquewhite;
+}
+
+.authorization div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(41, 46, 54, 0.849);
+  width: 70%;
+  height: 70%;
+  gap: 12px;
+}
+.authorization span {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.authorization h1{
+    color:beige;
+}
