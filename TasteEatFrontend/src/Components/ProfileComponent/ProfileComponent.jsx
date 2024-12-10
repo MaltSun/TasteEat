@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectUserId, selectUserRole } from "../../Store/authStore";
 import "./ProfileComponent.css";
+import ChangePassword from "../ChangePassword/ChangePassword";
 
 const ProfileComponent = () => {
-  const userId = useSelector(selectUserId);
-  const role = useSelector(selectUserRole);
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+  const [data, setData] = useState(null);
+  const [isChangePasswordOpen, setChangePasswordOpen] = useState(false);
   useEffect(() => {
+    const userId = sessionStorage.getItem("userId");
+    const role = sessionStorage.getItem("role");
+
     const fetchData = async () => {
       try {
         let response;
-        if (role === "customer") {
-          response = await fetch(`http://localhost:3000/api/customer/${userId}`);
+        if (role === "deliverer") {
+          response = await fetch(
+            `http://localhost:3000/api/deliverers/${userId}`
+          );
         } else {
-          response = await fetch(`http://localhost:3000/api/deliverers/${userId}`);
+          response = await fetch(
+            `http://localhost:3000/api/customer/${userId}`
+          );
         }
 
         if (!response.ok) {
@@ -27,29 +30,18 @@ const ProfileComponent = () => {
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {
-        console.error("Error fetching data:", error);
         setError(error.message);
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
 
     if (userId) {
       fetchData();
+    } else {
+      setLoading(false);
     }
-  }, [userId, role]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!data) {
-    return <div>No data found</div>;
-  }
+  }, []);
 
   return (
     <div className="profileComponent">
@@ -60,25 +52,30 @@ const ProfileComponent = () => {
             src="./Images/ProfileImage.png"
             alt="Profile"
           />
-          <button className="contoureButton">Change profile</button>
+          <button
+            className="contoureButton"
+            onClick={() => setChangePasswordOpen(true)}
+          >
+            Change password
+          </button>
         </div>
         <div className="informationBlock">
           <div className="smallInformationBlock">
             <p className="smallText">Username</p>
-            <p className="bigText">{data.username}</p>
+            <p className="bigText">{data?.username || "Не указано"}</p>
           </div>
-          <div>
+          {/* <div>
             <p className="smallText">Address</p>
-            <p className="bigText">{data.address}</p>
-          </div>
+            <p className="bigText">{data?.address || "Не указано"}</p>
+          </div> */}
           <div>
             <p className="smallText">Email</p>
-            <p className="bigText">{data.email}</p>
+            <p className="bigText">{data?.email || "Не указано"}</p>
           </div>
-          <div>
+          {/* <div>
             <p className="smallText">Card</p>
-            <p className="bigText">{data.card}</p>
-          </div>
+            <p className="bigText">{data?.card || "Не указано"}</p>
+          </div> */}
         </div>
       </div>
 
@@ -92,6 +89,11 @@ const ProfileComponent = () => {
           <a href="mailto:polinka041022@gmail.com">Write message</a>
         </button>
       </div>
+
+      <ChangePassword
+        isOpen={isChangePasswordOpen}
+        onClose={() => setChangePasswordOpen(false)}
+      />
     </div>
   );
 };
