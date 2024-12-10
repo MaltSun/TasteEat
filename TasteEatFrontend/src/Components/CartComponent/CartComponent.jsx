@@ -1,54 +1,73 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  decreaseQuantity,
-  increaseQuantity,
-  selectCartItems,
-  deleteFromCart,
-} from "../../Store/cartStore";
+import React, { useEffect, useState } from "react";
 import "./CartComponent.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const CartComponent = () => {
-  const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([]);
 
-  const handleIncrease = (item) => {
-    dispatch(increaseQuantity(item.id));
+  useEffect(() => {
+    // Загружаем элементы из sessionStorage
+    const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    setCartItems(storedCartItems);
+  }, []);
+
+  const updateSessionStorage = (items) => {
+    sessionStorage.setItem('cartItems', JSON.stringify(items));
   };
 
-  const handleDecrease = (item) => {
-    if (item.quantity == 1) {
-      dispatch(deleteFromCart(item.id));
-    } else {
-      dispatch(decreaseQuantity(item.id));
-    }
+  const handleIncrease = (itemId) => {
+    const updatedItems = cartItems.map(item => 
+      item.id === itemId ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+    );
+    setCartItems(updatedItems);
+    updateSessionStorage(updatedItems);
   };
+
+  const handleDecrease = (itemId) => {
+    const updatedItems = cartItems.map(item => {
+      if (item.id === itemId) {
+        const newQuantity = (item.quantity || 1) - 1;
+        return newQuantity > 0 ? { ...item, quantity: newQuantity } : null; // Удаляем, если количество 0
+      }
+      return item;
+    }).filter(item => item !== null); // Фильтруем null значения
+
+    setCartItems(updatedItems);
+    updateSessionStorage(updatedItems);
+  };
+
   const deleteItem = (itemId) => {
-    dispatch(deleteFromCart(itemId));
+    const updatedItems = cartItems.filter(item => item.id !== itemId);
+    setCartItems(updatedItems);
+    updateSessionStorage(updatedItems);
   };
+
   return (
     <div>
-      {cartItems.map((item) => (
-        <div key={item.id} className="cartComponent">
-          <img src={item.photo} alt={item.name} />
-          <div>
-            <h2>{item.name}</h2>
-            <p>{item.description}</p>
-            <button onClick={() => deleteItem(item.id)}>
-              <DeleteOutlineOutlinedIcon className="deleteIcon" />
-            </button>
+      {cartItems.length > 0 ? (
+        cartItems.map((item) => (
+          <div key={item.id} className="cartComponent">
+            <img src={item.photo} alt={item.name} />
+            <div>
+              <h2>{item.name}</h2>
+              <p>{item.description}</p>
+              <button onClick={() => deleteItem(item.id)}>
+                <DeleteOutlineOutlinedIcon className="deleteIcon" />
+              </button>
+            </div>
+            <div className="quantity">
+              <button onClick={() => handleIncrease(item.id)}>+</button>
+              <span>{item.quantity || 1}</span>
+              <button onClick={() => handleDecrease(item.id)}>-</button>
+            </div>
+            <div className="price">
+              ${(item.price * (item.quantity || 1)).toFixed(2)}
+            </div>
           </div>
-          <div className="quantity">
-            <button onClick={() => handleIncrease(item)}>+</button>
-            <span>{item.quantity}</span>
-            <button onClick={() => handleDecrease(item)}>-</button>
-          </div>
-          <div className="price">
-            ${(item.price * item.quantity).toFixed(2)}
-          </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <h2>Your Cart Is Empty</h2>
+      )}
     </div>
   );
 };
