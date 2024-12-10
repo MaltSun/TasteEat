@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 
-const YandexMap = () => {
+const YandexMap = ({ destination }) => {
     useEffect(() => {
         const loadYandexMaps = () => {
             if (window.ymaps) {
-                init(); 
+                init();
             } else {
                 const script = document.createElement("script");
                 script.src = "https://api-maps.yandex.ru/2.1/?apikey=73465fcb-e0fe-4f7b-86d2-0032b65994c2&lang=ru_RU";
-                           
                 script.onload = () => {
                     window.ymaps.ready(init);
                 };
@@ -20,8 +19,8 @@ const YandexMap = () => {
             if (document.getElementById("map").children.length === 0) {
                 const myMap = new window.ymaps.Map("map", {
                     center: [48.8429545, 2.3143345], 
-                    zoom: 11, 
-                    controls: [] 
+                    zoom: 11,
+                    controls: []
                 });
 
                 const routePanelControl = new window.ymaps.control.RoutePanel({
@@ -55,17 +54,26 @@ const YandexMap = () => {
 
                 trafficControl.getProvider("traffic#actual").state.set("infoLayerShown", true);
 
-                routePanelControl.routePanel.getRouteAsync().then(function (route) {
-                    route.model.setParams({ results: 1 }, true);
-                    route.model.setParams({ avoidTrafficJams: true }, true);
+                if (destination) {
+                    routePanelControl.routePanel.getRouteAsync().then(function (route) {
+                        route.model.setParams({ results: 1 }, true);
+                        route.model.setParams({ avoidTrafficJams: true }, true);
+                                               
+                        route.model.setFrom({ 
+                            point: myMap.getCenter() 
+                        });
+                        route.model.setTo({ 
+                            point: destination 
+                        });
 
-                    route.model.events.add('requestsuccess', function () {
-                        var activeRoute = route.getActiveRoute();
-                        if (activeRoute) {
-                            activeRoute.balloon.open();
-                        }
+                        route.model.events.add('requestsuccess', function () {
+                            var activeRoute = route.getActiveRoute();
+                            if (activeRoute) {
+                                activeRoute.balloon.open();
+                            }
+                        });
                     });
-                });
+                }
             }
         };
 
@@ -74,12 +82,12 @@ const YandexMap = () => {
         return () => {
             const mapContainer = document.getElementById("map");
             if (mapContainer) {
-                mapContainer.innerHTML = ""; 
+                mapContainer.innerHTML = "";
             }
         };
-    }, []);
+    }, [destination]);
 
-    return <div id="map" style={{ width: "300px", height: "500px" }} />;
+    return <div id="map" style={{ width: "500px", height: "300px" }} />;
 };
 
 export default YandexMap;

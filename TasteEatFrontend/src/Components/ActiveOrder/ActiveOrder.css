@@ -1,0 +1,31 @@
+.activeOrder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.activeOrderBlock {
+  width: 60%;
+  gap: 40px;
+}
+
+.activeOrderCard {
+  display: flex;
+  flex-direction: row;
+  background: #c6ab8224;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 10px;
+  box-shadow: 10px 5px 5px #9a867eaf;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.activeOrderCard img {
+  width: 100px;
+  height: 100px;
+}
+.mapBlock {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
