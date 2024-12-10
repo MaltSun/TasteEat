@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
 import "./ReviewCard.css";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css'; 
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 const ReviewCard = () => {
   const [data, setData] = useState([]);
@@ -10,11 +16,9 @@ const ReviewCard = () => {
     fetch("http://localhost:3000/api/review/resource")
       .then((response) => response.json())
       .then((jsonData) => {
-        console.log(jsonData);
         if (Array.isArray(jsonData)) {
           setData(jsonData);
         } else {
-          console.error("Received data is not an array:", jsonData);
           setData([]);
         }
       })
@@ -22,26 +26,32 @@ const ReviewCard = () => {
   }, []);
 
   return (
-    <div className="reviewBlock">
-      <Swiper
-        slidesPerView={2.5} 
-        pagination={{ clickable: true }} 
-        navigation 
-      >
+    <CarouselProvider
+      naturalSlideWidth={100}
+      naturalSlideHeight={50}
+      totalSlides={data.length}
+      visibleSlides={2.5}
+    >
+       <div className="carouselControls">
+          <ButtonBack className="carouselButton">back</ButtonBack>
+          <ButtonNext className="carouselButton">front</ButtonNext>
+        </div>
+      <Slider>
         {data.map((item, index) => (
-          <SwiperSlide key={index}>
+          <Slide index={index} key={index}>
             <div className="review">
               <div className="reviewHeader">
-                <img src="" alt=""/>
-                <h3>{item.Customer.userId == "null" ? "user" : item.Customer.username}</h3>
+                <img src="./Images/defoltUser.png" alt="" />
+                <h3>{item.Customer?.username || "Unknown User"}</h3>
               </div>
               <hr />
               <p className="littleLight">{item.coment}</p>
             </div>
-          </SwiperSlide>
+          </Slide>
         ))}
-      </Swiper>
-    </div>
+       
+      </Slider>
+    </CarouselProvider>
   );
 };
 

@@ -8,26 +8,30 @@ router.post("/", orderController.createOrder);
 // Получить все заказы
 router.get("/", orderController.getAllOrders);
 
-// Получить заказ по ID
 router.get("/:id", orderController.getOrderById);
 
+router.get("/active/:deliveryId", orderController.getOrdersByDeliveryId);
+
 // Обновить заказ
-router.put("/:id", orderController.updateOrder);
+//router.put("/:id", orderController.updateOrder);
 
 // Удалить заказ
 router.delete("/:id", orderController.deleteOrder);
 
 // Принять заказ
-router.put("/accept/:id", orderController.acceptOrder);
+router.patch("/accept/:id/:delivererId", orderController.acceptOrder);
 
 // Завершить заказ
-router.put("/complete/:id", orderController.completeOrder);
+router.patch("/complete/:id", orderController.completeOrder);
 
 router.get("/completed/customer/:customerId", orderController.getCompletedOrdersByCustomerId);
 
 router.get("/uncompleted/customer/:customerId", orderController.getNotCompletedOrdersByCustomerId);
 
-// Получить завершенные заказы для конкретного доставщика
 router.get("/completed/deliverer/:delivererId", orderController.getCompletedOrdersByDelivererId);
+
+router.get("/current/deliverer/", orderController.getCurrentOrdersByDelivererId);
+
+router.get("/active/:delivererId", orderController.getActiveOrdersByDelivererId);
 
 module.exports = router;

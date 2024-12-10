@@ -34,7 +34,7 @@ Order.init(
       },
     },
     status: {
-      type: DataTypes.ENUM("pending", "completed", "canceled"),
+      type: DataTypes.ENUM("pending", "completed", "canceled", "executing"),
       allowNull: false,
     },
     deliveryId: {

@@ -72,6 +72,38 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
+exports.getOrdersByDeliveryId = async (req, res) => {
+  const { deliveryId } = req.params; 
+
+  try {
+    
+    const orders = await Order.findAll({
+      where: {
+        deliveryId: deliveryId,
+        status: "pending",
+      },
+      include: [
+        {
+          model: Dish,
+          through: {
+            model: OrderDish,
+            attributes: ["quantity"],
+          },
+        },
+      ],
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.updateOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -115,11 +147,16 @@ exports.deleteOrder = async (req, res) => {
 exports.acceptOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
+    const delivererId = req.params.delivererId;
+
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
-    order.status = "accepted";
+
+    //order.status = "executing";
+    order.deliveryId = delivererId;
     await order.save();
+
     res.status(200).json(order);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -129,11 +166,13 @@ exports.acceptOrder = async (req, res) => {
 exports.completeOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
+    
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
     order.status = "completed";
     await order.save();
+    
     res.status(200).json(order);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -146,51 +185,14 @@ exports.getCompletedOrdersByCustomerId = async (req, res) => {
   try {
     const orders = await Order.findAll({
       where: {
-        customerId: customerId,
-        status: "completed",  
-      },
-      // include: [
-      //   {
-      //     model: Dish,
-      //     through: {
-      //       attributes: ["quantity"],  
-      //     },
-      //   },
-      //   {
-      //     model: Deliverers,
-      //     through: {
-      //       attributes: ["username"],  
-      //     },
-      //   },
-       
-      // ],
-    });
-
-    if (!orders.length) {
-      return res.status(404).json({ message: "Заказы не найдены" });
-    }
-
-    res.status(200).json(orders);
-  } catch (error) {
-    console.error(error); 
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
-  const { customerId } = req.params;
-
-  try {
-    const orders = await Order.findAll({
-      where: {
-        customerId: customerId,
-        status: "pending",  
+        customerId: customerId, 
+        status: "completed",
       },
       include: [
         {
           model: Dish,
           through: {
-            attributes: ["quantity"],  
+            attributes: ["quantity"], 
           },
         },
       ],
@@ -202,11 +204,102 @@ exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
 
     res.status(200).json(orders);
   } catch (error) {
-    console.error(error); 
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getNotCompletedOrdersByCustomerId = async (req, res) => {
+  const { customerId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        customerId: customerId,
+        status: "pending",
+      },
+      include: [
+        {
+          model: Dish,
+          through: {
+            attributes: ["quantity"],
+          },
+        },
+      ],
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
 
 exports.getCompletedOrdersByDelivererId = async (req, res) => {
-  // Реализуйте эту функцию в зависимости от вашей логики
+  const { delivererId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        deliveryId: delivererId,
+        status: "completed",
+      },
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getCurrentOrdersByDelivererId = async (req, res) => {
+  const { delivererId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        deliveryId: null,
+      },
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getActiveOrdersByDelivererId = async (req, res) => {
+  const { delivererId } = req.params;
+
+  try {
+    const orders = await Order.findAll({
+      where: {
+        deliveryId: delivererId,
+        status: "pending",
+      },
+    });
+
+    if (!orders.length) {
+      return res.status(404).json({ message: "Заказы не найдены" });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 };

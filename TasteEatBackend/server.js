@@ -25,9 +25,14 @@ const sequelize = new Sequelize(
 
 app.use(cors({
   origin: 'http://localhost:5173', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  methods: ['GET', 'POST', 'PUT','PATCH', 'DELETE'], 
   credentials: true 
 }));
+
+app.use((req, res, next) => {
+  console.log(`${req.method} request for '${req.url}'`);
+  next(); // Передаем управление следующему обработчику
+});
 
 app.use(express.json());
 app.use("/api/dish", dishRoutes);
@@ -37,6 +42,8 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/deliverers", deliverersRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/authorization", authorizationRoutes);
+
+app.options('*', cors());
 
 sequelize
   .authenticate()
