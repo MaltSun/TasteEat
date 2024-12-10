@@ -1,0 +1,57 @@
+.currentOrder {
+    width: 1440px;
+    padding: 0px 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: #fff8f5;
+  }
+  .currentCard {
+    width: 20%;
+    padding: 10px 20px;
+    background: #c6ab8224;
+    box-shadow: 10px 5px 5px #9a867eaf;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+ 
+  .noOrders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    font-family: "Josefin Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
+    letter-spacing: 0.2px;
+  }
+  h2,
+  button,
+  Link {
+    font-family: "Josefin Sans";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px; /* 150% */
+    letter-spacing: 0.2px;
+  }
+  p {
+    font-family: "Josefin Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
+    letter-spacing: 0.2px;
+  }
+  
+  
