@@ -1,19 +1,16 @@
 import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserRole } from "../../Store/authStore";
-import { selectUserId } from "../../Store/authStore";
+
 const Header = () => {
-  const role = useSelector(selectUserRole);
-  const userId = useSelector(selectUserId);
-  
-  let cart;
+  const userId = sessionStorage.getItem("userId");
+  const role = sessionStorage.getItem("role");
+
   const profilePath = () => {
-    if (role === "customer") {
+    if (role === "user") {
       return "/profile";
     } else if (role === "deliverer") {
-      return "/deliverer";
+      return "/delivery";
     } else if (role === "admin") {
       return "/admin";
     } else {
