@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTable } from "react-table";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const AdminReview = () => {
@@ -36,7 +37,7 @@ const AdminReview = () => {
           throw new Error("Ошибка при удалении отзыва");
         }
 
-        fetchData(); 
+        fetchData();
       } catch (error) {
         setError(error.message);
       }
@@ -47,31 +48,67 @@ const AdminReview = () => {
     fetchData();
   }, []);
 
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "User",
+        accessor: "Customer.username",
+      },
+      {
+        Header: "Review",
+        accessor: "coment",
+      },
+      {
+        Header: "Action",
+        accessor: "id",
+        Cell: ({ cell }) => (
+          <button>
+            <DeleteOutlineIcon onClick={() => deleteReview(cell.value)} />
+          </button>
+        ),
+      },
+    ],
+    []
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data,
+    });
+
   return (
-    <div>
+    <div className="adminMenu">
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {data.length > 0 ? (
-        data.map((item) => (
-          <div key={item.id}>
-            <div className="review">
-              <div className="reviewHeader">
-                <img
-                  src={item.Customer.photo || "./Images/defaultUser.png"}
-                  alt=""
-                />
-                <h3>
-                  {item.Customer.userId === "null"
-                    ? "user"
-                    : item.Customer.username}
-                </h3>
-              </div>
-              <hr />
-              <DeleteOutlineIcon onClick={() => deleteReview(item.id)} />
-              <p className="littleLight">{item.coment}</p>
-            </div>
-          </div>
-        ))
-      ) : (
+      <table {...getTableProps()} className="table2">
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()} key={column.id}>
+                  {column.render("Header")}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()} key={row.id}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()} key={cell.column.id}>
+                    {cell.render("Cell")}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+      {data.length === 0 && (
         <div>
           <img src="./Images/LightLogo.png" alt="No reviews" />
           <p>No Review Yet</p>
