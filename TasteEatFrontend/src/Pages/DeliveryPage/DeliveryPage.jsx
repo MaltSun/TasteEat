@@ -16,6 +16,8 @@ const DeliveryPage = () => {
   const [hasActiveOrders, setHasActiveOrders] = useState(false);
   const userId = sessionStorage.getItem("userId");
 
+  
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -37,7 +39,7 @@ const DeliveryPage = () => {
   }, [userId]);
 
   const handleOrderComplete = () => {
-    setHasActiveOrders(false); // Обновляем состояние, когда все заказы завершены
+    setHasActiveOrders(false); 
   };
 
   const toggleOldOrders = () => {
@@ -67,7 +69,7 @@ const DeliveryPage = () => {
 
       {showCurrentOrders && (
         <div id="oldOrder">
-          <CurrentOrder orders={orders} />
+          <CurrentOrder  orders={orders} />
         </div>
       )}
 

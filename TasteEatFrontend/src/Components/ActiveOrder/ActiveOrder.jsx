@@ -10,6 +10,33 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
     setOrders(initialOrders || []);
   }, [initialOrders]);
 
+  const deleteOrder = async (orderId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/order/delete/${orderId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Ошибка при отмене заказа");
+      }
+
+      setOrders((prevOrders) =>
+        prevOrders.filter((order) => order.id !== orderId)
+      );
+
+      if (orders.length === 1) {
+        onOrderComplete(); 
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const completeOrder = async (orderId) => {
     try {
       const response = await fetch(
@@ -26,12 +53,11 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
       }
       const updatedOrder = await response.json();
       setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.id !== updatedOrder.id) // Удаляем завершенный заказ
+        prevOrders.filter((order) => order.id !== updatedOrder.id) 
       );
 
-      // Если все заказы завершены, вызываем колбек для обновления состояния в родительском компоненте
       if (orders.length === 1) {
-        onOrderComplete(); // Сигнализируем родителю, что все заказы завершены
+        onOrderComplete(); 
       }
     } catch (error) {
       console.error(error);
@@ -47,6 +73,9 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
             <h2>Address: {orders[0].address}</h2>
             <button className="filleadButton" onClick={() => completeOrder(orders[0].id)}>
               Завершить заказ
+            </button>
+            <button className="filleadButton" onClick={() => deleteOrder(orders[0].id)}>
+              отменить заказ
             </button>
           </div>
 
@@ -78,7 +107,7 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
           })}
         </>
       ) : (
-        <p>Все заказы завершены.</p> // Сообщение, когда нет активных заказов
+        <p>Все заказы завершены.</p> 
       )}
     </div>
   );

@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectUserId, selectUserRole } from "../../Store/authStore";
 import "./CurrentOrder.css";
+
 const CurrentOrder = ({ deliveryId }) => {
-
-    const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
   const userId = sessionStorage.getItem("userId");
-  
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/order/current/deliverer/`
-        );
-        if (!response.ok) {
-          throw new Error("Ошибка при получении заказа");
-        }
-        const data = await response.json();
-        setOrders(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
+  useEffect(() => {
     fetchDetails();
   }, [deliveryId]);
+
+  const fetchDetails = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/order/current/deliverer/`
+      );
+      if (!response.ok) {
+        throw new Error("Ошибка при получении заказа");
+      }
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const acceptOrder = async (orderId, userId) => {
     try {
@@ -37,19 +35,14 @@ const CurrentOrder = ({ deliveryId }) => {
           },
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Ошибка при изменении статуса заказа");
       }
-  
-      const updatedOrder = await response.json();
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === updatedOrder.id ? updatedOrder : order
-        )
-      );
+      fetchDetails();
+      window.location.reload();
     } catch (error) {
-      console.error("Error accepting order:", error);
+      console.error("Ошибка при принятии заказа:", error);
     }
   };
 
@@ -62,7 +55,7 @@ const CurrentOrder = ({ deliveryId }) => {
               <h1>Order №{order.id}</h1>
               <p>Issue at: {new Date(order.createdAt).toLocaleString()}</p>
               <p>Address: {order.address}</p>
-              <h2>Price {}</h2>
+             
               <button
                 className="filleadButton"
                 onClick={() => acceptOrder(order.id, userId)}
@@ -74,7 +67,7 @@ const CurrentOrder = ({ deliveryId }) => {
         ))
       ) : (
         <div className="noOrders">
-          <img src="./Images/ProfileImage.png"></img>
+          <img src="./Images/ProfileImage.png" alt="No orders" />
           <h1>No Completed Orders Yet</h1>
         </div>
       )}
