@@ -12,17 +12,13 @@ router.get("/:id", orderController.getOrderById);
 
 router.get("/active/:deliveryId", orderController.getOrdersByDeliveryId);
 
-// Обновить заказ
-//router.put("/:id", orderController.updateOrder);
 
-// Удалить заказ
-router.delete("/:id", orderController.deleteOrder);
+router.patch("/delete/:id", orderController.deleteOrder);
 
-// Принять заказ
 router.patch("/accept/:id/:delivererId", orderController.acceptOrder);
 
-// Завершить заказ
 router.patch("/complete/:id", orderController.completeOrder);
+
 
 router.get("/completed/customer/:customerId", orderController.getCompletedOrdersByCustomerId);
 
