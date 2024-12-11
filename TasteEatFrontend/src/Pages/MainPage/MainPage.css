@@ -82,7 +82,7 @@
 }
 .lanterns {
   width: 1440px;
-  margin-left: 118px;
+margin: 0 auto;
 }
 .offerSection {
   width: 1400px;
