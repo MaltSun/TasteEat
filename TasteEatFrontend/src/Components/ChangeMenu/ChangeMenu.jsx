@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./ChangeMenu.css"; 
 
 const ChangeMenu = ({ dishId, onDishUpdated }) => {
   const [dishData, setDishData] = useState({
@@ -11,6 +12,7 @@ const ChangeMenu = ({ dishId, onDishUpdated }) => {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const categories = ["Суп", "Основное блюдо", "Десерт", "Напиток"]; // Пример категорий
 
   useEffect(() => {
     const fetchDish = async () => {
@@ -63,67 +65,68 @@ const ChangeMenu = ({ dishId, onDishUpdated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Редактировать блюдо</h2>
-      <div>
-        <label>Название:</label>
-        <input
-          type="text"
-          name="name"
-          value={dishData.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Фото:</label>
-        <input
-          type="text"
-          name="name"
-          value={dishData.photo}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Описание:</label>
-        <textarea
-          name="description"
-          value={dishData.description}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Категория:</label>
-        <input
-          type="text"
-          name="category"
-          value={dishData.category}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Вес:</label>
-        <input
-          type="number"
-          name="weight"
-          value={dishData.weight}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Цена:</label>
-        <input
-          type="number"
-          name="price"
-          value={dishData.price}
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit">Сохранить изменения</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
-    </form>
+    <div className="modal">
+      <form onSubmit={handleSubmit}>
+        <h2>Редактировать блюдо</h2>
+        <div>
+          <label>Название:</label>
+          <input
+            type="text"
+            name="name"
+            value={dishData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Фото:</label>
+          <input
+            type="text"
+            name="photo"
+            value={dishData.photo}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Описание:</label>
+          <textarea
+            name="description"
+            value={dishData.description}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Категория:</label>
+          <select
+            name="category"
+            value={dishData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Выберите категорию</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Цена:</label>
+          <input
+            type="number"
+            name="price"
+            value={dishData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Сохранить изменения</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
+      </form>
+    </div>
   );
 };
 
