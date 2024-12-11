@@ -6,38 +6,42 @@ const CartComponent = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    // Загружаем элементы из sessionStorage
-    const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    const storedCartItems =
+      JSON.parse(sessionStorage.getItem("cartItems")) || [];
     setCartItems(storedCartItems);
   }, []);
 
   const updateSessionStorage = (items) => {
-    sessionStorage.setItem('cartItems', JSON.stringify(items));
+    sessionStorage.setItem("cartItems", JSON.stringify(items));
   };
 
   const handleIncrease = (itemId) => {
-    const updatedItems = cartItems.map(item => 
-      item.id === itemId ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+    const updatedItems = cartItems.map((item) =>
+      item.id === itemId
+        ? { ...item, quantity: (item.quantity || 1) + 1 }
+        : item
     );
     setCartItems(updatedItems);
     updateSessionStorage(updatedItems);
   };
 
   const handleDecrease = (itemId) => {
-    const updatedItems = cartItems.map(item => {
-      if (item.id === itemId) {
-        const newQuantity = (item.quantity || 1) - 1;
-        return newQuantity > 0 ? { ...item, quantity: newQuantity } : null; // Удаляем, если количество 0
-      }
-      return item;
-    }).filter(item => item !== null); // Фильтруем null значения
+    const updatedItems = cartItems
+      .map((item) => {
+        if (item.id === itemId) {
+          const newQuantity = (item.quantity || 1) - 1;
+          return newQuantity > 0 ? { ...item, quantity: newQuantity } : null; // Удаляем, если количество 0
+        }
+        return item;
+      })
+      .filter((item) => item !== null); 
 
     setCartItems(updatedItems);
     updateSessionStorage(updatedItems);
   };
 
   const deleteItem = (itemId) => {
-    const updatedItems = cartItems.filter(item => item.id !== itemId);
+    const updatedItems = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedItems);
     updateSessionStorage(updatedItems);
   };
@@ -56,9 +60,9 @@ const CartComponent = () => {
               </button>
             </div>
             <div className="quantity">
-              <button onClick={() => handleIncrease(item.id)}>+</button>
-              <span>{item.quantity || 1}</span>
               <button onClick={() => handleDecrease(item.id)}>-</button>
+              <span>{item.quantity || 1}</span>{" "}
+              <button onClick={() => handleIncrease(item.id)}>+</button>{" "}
             </div>
             <div className="price">
               ${(item.price * (item.quantity || 1)).toFixed(2)}

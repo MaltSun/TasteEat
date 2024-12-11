@@ -38,7 +38,7 @@ const CartPage = () => {
 
     try {
       const response = await fetch("http://localhost:3000/api/order", {
-        // Измените на правильный порт
+       
         method: "POST",
         headers: {
           "Content-Type": "application/json",
