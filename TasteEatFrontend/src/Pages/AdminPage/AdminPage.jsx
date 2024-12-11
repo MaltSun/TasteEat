@@ -8,18 +8,14 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CreateDish from "../../Components/CreateDish/CreateDish";
 import ChangeMenu from "../../Components/ChangeMenu/ChangeMenu";
 import AdminReview from "../../Components/AdminReview/AdminReview";
+import AdminMenu from "../../Components/AdminMenu/AdminMenu";
 import jsPDF from "jspdf";
 import SalesChart from "../../Components/SalesCharts/SalesCharts";
 import { useTable, useSortBy, usePagination } from "react-table";
-
+import "./AdminPage.css";
 const AdminPage = () => {
-  const salesData = [
-    { month: "Январь", sales: 300 },
-    { month: "Февраль", sales: 200 },
-    { month: "Март", sales: 400 },
-    { month: "Апрель", sales: 150 },
-    { month: "Май", sales: 250 },
-  ];
+  const [showMenu, setShowMenu] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
   const [dishes, setDishes] = useState([]);
   const [orders, setOrders] = useState([]);
   const [editingDishId, setEditingDishId] = useState(null);
@@ -52,34 +48,17 @@ const AdminPage = () => {
       .catch((error) => console.error("Error fetching orders:", error));
   };
 
-  const deleteDish = async (dishId) => {
-    if (!window.confirm("Do you really want to delete this dish?")) return;
-    try {
-      const response = await fetch(`http://localhost:3000/api/dish/${dishId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Error deleting dish");
-      }
-      alert("Deleted successfully");
-      fetchDishes();
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   useEffect(() => {
     fetchDishes();
     fetchOrders();
   }, []);
 
-  const handleEditDish = (id) => {
-    setEditingDishId(id);
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
   };
 
-  const handleCloseEdit = () => {
-    setEditingDishId(null);
-    fetchDishes();
+  const toggleReviews = () => {
+    setShowReviews((prev) => !prev);
   };
 
   const generateOrdersReport = () => {
@@ -140,130 +119,27 @@ const AdminPage = () => {
     doc.save("sales_report.pdf");
   };
 
-  const columns = React.useMemo(
-    () => [
-      { Header: "Название", accessor: "name" },
-      { Header: "Описание", accessor: "description" },
-      { Header: "Категория", accessor: "category" },
-      { Header: "Вес", accessor: "weight" },
-      { Header: "Цена", accessor: "price" },
-      {
-        Header: "Действия",
-        accessor: "id",
-        Cell: ({ cell }) => (
-          <>
-            <button onClick={() => handleEditDish(cell.value)}>
-              <EditNoteIcon />
-            </button>
-            <button onClick={() => deleteDish(cell.value)}>
-              <DeleteOutlineIcon />
-            </button>
-          </>
-        ),
-      },
-    ],
-    []
-  );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { pageIndex, pageSize },
-    gotoPage,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    setPageSize,
-  } = useTable(
-    {
-      columns,
-      data: dishes,
-      initialState: { pageIndex: 0 },
-    },
-    useSortBy,
-    usePagination
-  );
-
   return (
-    <div>
+    <div className="adminPage">
       <Header />
       <ProfileCard />
-      <SalesChart salesData={salesData} />
+      {/* <SalesChart salesData={salesData} /> */}
+
+      <div className="text">
+        <h1>View Menu</h1>
+        <ArrowDropDownIcon fontSize="large" onClick={toggleMenu} />
+      </div>
+      {showMenu && <AdminMenu />}
+      <hr></hr>
+      <div className="text">
+        <h1> View Reviews</h1>
+        <ArrowDropDownIcon fontSize="large" onClick={toggleReviews} />
+      </div>
+      {showReviews && <AdminReview />}
+
       <button className="filleadButton" onClick={generateOrdersReport}>
         Generate Orders Report
       </button>
-      <table {...getTableProps()} className="table">
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      <p>Menu</p>
-      <ArrowDropDownIcon />
-      {/* <div className="menuCard">
-        <div className="menuCategory">
-          {dishes.length > 0 ? (
-            dishes.map((item) => (
-              <div className="menuItem" key={item.id}>
-                <img className="menuPhoto" src={item.photo} alt={item.name} />
-                <p className="title">{item.name}</p>
-                <p className="description">{item.description}</p>
-                <p className="description">Категория: {item.category}</p>
-                <p>{item.weight} grams</p>
-                <p>$ {item.price}</p>
-                <button onClick={() => handleEditDish(item.id)}>
-                  <EditNoteIcon />
-                </button>
-                <button onClick={() => deleteDish(item.id)}>
-                  <DeleteOutlineIcon />
-                </button>
-              </div>
-            ))
-          ) : (
-            <div>
-              <img src="./Images/LightLogo.png" alt="No Dishes" />
-              <p>Нет доступных блюд в меню.</p>
-            </div>
-          )}
-        </div>
-        {editingDishId && (
-          <ChangeMenu dishId={editingDishId} onDishUpdated={handleCloseEdit} />
-        )}
-        <button>Create New Dish</button>
-        <CreateDish onDishCreated={fetchDishes} />
-      </div> */}
-
-      <p>View Reviews</p>
-      <AdminReview />
 
       <Footer />
     </div>
