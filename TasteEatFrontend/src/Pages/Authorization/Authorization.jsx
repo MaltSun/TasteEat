@@ -39,16 +39,11 @@ const Authorization = () => {
         navigate("/profile");
       } else if (role === "admin") {
         navigate("/admin");
-      } else {
+      } else if(role === "delivery"){       
         navigate("/delivery");
       }
 
-      dispatch(setCredentials({ email, password, userId: id, role }));
-
-      // dbCartItems.forEach((item) => {
-      //   dispatch(addItemToCart(item));
-      // });
-      // dispatch(clearCredentials());
+      
     }
   };
 
