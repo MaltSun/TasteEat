@@ -23,10 +23,10 @@ Dish.init(
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    weight: {
-      type: DataTypes.DOUBLE,
-      allowNull: false,
-    },
+    // weight: {
+    //   type: DataTypes.DOUBLE,
+    //   allowNull: false,
+    // },
     category: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,22 +35,22 @@ Dish.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    calories: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    fat: {
-      type: DataTypes.DOUBLE,
-      allowNull: false,
-    },
-    protein: {
-      type: DataTypes.DOUBLE,
-      allowNull: false,
-    },
-    carbs: {
-      type: DataTypes.DOUBLE,
-      allowNull: false,
-    },
+    // calories: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
+    // fat: {
+    //   type: DataTypes.DOUBLE,
+    //   allowNull: false,
+    // },
+    // protein: {
+    //   type: DataTypes.DOUBLE,
+    //   allowNull: false,
+    // },
+    // carbs: {
+    //   type: DataTypes.DOUBLE,
+    //   allowNull: false,
+    // },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
