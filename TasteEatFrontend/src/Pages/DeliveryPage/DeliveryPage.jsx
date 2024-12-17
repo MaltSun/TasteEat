@@ -57,12 +57,12 @@ const DeliveryPage = () => {
 
       {hasActiveOrders ? (
         <div className="active">
-          <h1>Информация о текущем заказе</h1>
+          <h1>Current Order</h1>
           <ActiveOrder orders={orders} onOrderComplete={handleOrderComplete} />
         </div>
       ) : (
         <div className="currentOrder">
-          <h1>Актуальные заказы</h1>
+          <h1>Free orders</h1>
           <ArrowDropDownIcon fontSize="large" onClick={toggleCurrentOrders} />
         </div>
       )}
@@ -74,7 +74,7 @@ const DeliveryPage = () => {
       )}
 
       <div className="oldOrder">
-        <h1>Выполненные заказы</h1>
+        <h1>Cmpleted Orders</h1>
         <ArrowDropDownIcon fontSize="large" onClick={toggleOldOrders} />
       </div>
       {showOldOrders && (

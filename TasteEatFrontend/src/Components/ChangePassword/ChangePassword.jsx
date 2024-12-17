@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import "./ChangePassword.css";
-import { selectUserId, selectUserRole } from "../../Store/authStore";
-import { useSelector } from "react-redux";
 
 const ChangePassword = ({ isOpen, onClose }) => {
-  const userId = useSelector(selectUserId);
-  const role = useSelector(selectUserRole);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +18,12 @@ const ChangePassword = ({ isOpen, onClose }) => {
     }
 
     if (!currentPassword || !newPassword || !confirmPassword) {
-        setError("Пожалуйста, заполните все поля");
-        return;
-      }
+      setError("Пожалуйста, заполните все поля");
+      return;
+    }
+
+    const userId = sessionStorage.getItem("userId");
+    const role = sessionStorage.getItem("role");
 
     try {
       const response = await fetch(
@@ -59,16 +59,18 @@ const ChangePassword = ({ isOpen, onClose }) => {
       setError("Ошибка при отправке запроса");
     }
   };
-
   if (!isOpen) return null;
 
   return (
     <div className="popupOverlay">
       <div className="popupContent">
-        <h2>Изменить пароль</h2>
+        <h2>Changing password</h2>
+        <button type="button" className="closeButton" onClick={onClose}>
+          ×
+        </button>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Текущий пароль:</label>
+            <label>Current Password</label>
             <input
               type="password"
               value={currentPassword}
@@ -77,7 +79,7 @@ const ChangePassword = ({ isOpen, onClose }) => {
             />
           </div>
           <div>
-            <label>Новый пароль:</label>
+            <label>New Password:</label>
             <input
               type="password"
               value={newPassword}
@@ -86,7 +88,7 @@ const ChangePassword = ({ isOpen, onClose }) => {
             />
           </div>
           <div>
-            <label>Подтвердите новый пароль:</label>
+            <label>Confirm Password:</label>
             <input
               type="password"
               value={confirmPassword}
@@ -96,10 +98,7 @@ const ChangePassword = ({ isOpen, onClose }) => {
           </div>
           {error && <p className="error">{error}</p>}
           {successMessage && <p className="success">{successMessage}</p>}
-          <button type="submit">Сохранить</button>
-          <button type="button" onClick={onClose}>
-            Закрыть
-          </button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>

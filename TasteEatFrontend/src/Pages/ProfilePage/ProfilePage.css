@@ -50,11 +50,22 @@ p {
   border-bottom: 1px solid #0503037b;
 }
 @media screen and (max-width: 1438px) {
-  .profile {
+  .profile,
+  .oldOrder,
+  .delivery {
+    width: 100%;
+    padding: 20px 8px;
+  }
+  .profile .emptyCart {
+    padding: 0px;
     width: 100%;
   }
 }
-
-@media screen and (max-width: 365px) {
- 
+.oldOrder {
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .delivery {
+    padding: 20px 8px;
+  }
 }

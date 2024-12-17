@@ -10,7 +10,6 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   const [visibleItems, setVisibleItems] = useState(4);
 
   useEffect(() => {
-    // Инициализация корзины из sessionStorage
     const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
     setCartItems(storedCartItems);
   }, []);
@@ -22,14 +21,12 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   const handleAddToCart = (item) => {
     const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
     if (existingItem) {
-      // Если элемент уже в корзине, увеличиваем количество
       const updatedItems = cartItems.map(cartItem =>
         cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
       );
       setCartItems(updatedItems);
       updateSessionStorage(updatedItems);
     } else {
-      // Если элемент не в корзине, добавляем его
       const newItem = { ...item, quantity: 1 };
       const updatedItems = [...cartItems, newItem];
       setCartItems(updatedItems);
@@ -48,7 +45,7 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   const handleDecrease = (item) => {
     const updatedItems = cartItems.map(cartItem =>
       cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
-    ).filter(cartItem => cartItem.quantity > 0); // Удаляем элемент, если количество 0
+    ).filter(cartItem => cartItem.quantity > 0); 
     setCartItems(updatedItems);
     updateSessionStorage(updatedItems);
   };
@@ -62,7 +59,7 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   };
 
   return (
-    <div>
+    <div className="menuSection">
       <h2 className="titleUnder">{title}</h2>
       <div className="menuCategory">
         {items.slice(0, visibleItems).map((item) => {

@@ -12,6 +12,18 @@ const Authorization = () => {
   const password = useSelector((state) => state.auth.password);
 
   const handleAuthorization = async () => {
+   
+    if (!email || !password) {
+      alert("Please fill in both fields.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     const response = await fetch(
       "http://localhost:3000/api/authorization/login",
       {
@@ -39,11 +51,10 @@ const Authorization = () => {
         navigate("/profile");
       } else if (role === "admin") {
         navigate("/admin");
-      } else if(role === "delivery"){       
+      } else {       
+        sessionStorage.setItem("role", "delivery");
         navigate("/delivery");
       }
-
-      
     }
   };
 
@@ -71,10 +82,10 @@ const Authorization = () => {
           placeholder="Enter A password"
         />
         <span>
-          <Link className="contoureButton" to={"/reg"}>
+          <Link className="button" to={"/reg"}>
             Go To Registration
           </Link>
-          <button className="contoureButton" onClick={handleAuthorization}>
+          <button className="button" onClick={handleAuthorization}>
             Send
           </button>
         </span>

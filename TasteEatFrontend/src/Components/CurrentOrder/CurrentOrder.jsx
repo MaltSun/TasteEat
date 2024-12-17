@@ -60,7 +60,7 @@ const CurrentOrder = ({ deliveryId }) => {
                 className="filleadButton"
                 onClick={() => acceptOrder(order.id, userId)}
               >
-                Принять
+                Accept 
               </button>
             </div>
           </div>

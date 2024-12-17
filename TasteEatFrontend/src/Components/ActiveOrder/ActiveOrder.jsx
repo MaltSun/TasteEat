@@ -72,10 +72,10 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
             <YandexMap destination={orders[0].address} />
             <h2>Address: {orders[0].address}</h2>
             <button className="filleadButton" onClick={() => completeOrder(orders[0].id)}>
-              Завершить заказ
+              Complete An Order
             </button>
             <button className="filleadButton" onClick={() => deleteOrder(orders[0].id)}>
-              отменить заказ
+              Delete An Order
             </button>
           </div>
 

@@ -30,7 +30,7 @@ const OldOrderComponent = ({ customerId }) => {
     };
 
     fetchDetails();
-  }, [userId, customerId]); // Added userId to dependencies
+  }, [userId, customerId]);
 
   const generateInvoice = (order) => {
     let doc = new jsPDF("p", "pt");

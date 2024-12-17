@@ -1,6 +1,4 @@
-/* * {
-  min-width: 320px;
-} */
+
 .cartPage {
   display: flex;
   flex-direction: column;
@@ -144,9 +142,13 @@
     width: 100%;
   }
 }
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 460px) {
   .emptyCart {
     padding: 20px 8px;
     justify-content: flex-start;
   }
+  .cartPage{
+    padding: 0px;
+  }
 }
+

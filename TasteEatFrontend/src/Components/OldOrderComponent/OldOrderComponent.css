@@ -28,6 +28,7 @@
   height: 100%;
 }
 .noOrders {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,3 +61,19 @@ p {
   letter-spacing: 0.2px;
 }
 
+@media screen and (max-width: 1438px) {
+  .oldOrderComponent {
+    width: 100%;
+    padding: 20px 8px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .oldCard {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+  .oldCard button {
+    width: 90%;
+  }
+}

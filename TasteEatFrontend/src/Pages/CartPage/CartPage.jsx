@@ -7,9 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const userId = sessionStorage.getItem("userId");
-  const userRole = sessionStorage.getItem("role"); // Получаем роль пользователя
+  const userRole = sessionStorage.getItem("role"); 
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate(); // Используем useNavigate для перенаправления
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const storedCartItems =
@@ -17,11 +17,16 @@ const CartPage = () => {
     setCartItems(storedCartItems);
   }, []);
 
+
+
   const handleOrder = async () => {
     if (!userId || userRole !== "user") {
+      alert("You don't have a perpiccion! Authorizate firts, please)")
       navigate("/login");
       return;
     }
+
+    alert("Order placed successfully!")
 
     const address = "User Address";
     const comment = "Order comment";
@@ -89,14 +94,9 @@ const CartPage = () => {
                 .toFixed(2)}
             </p>
             <button className="filleadButton" onClick={handleOrder}>
-              Заказать
+              Make An Order
             </button>
-            <div>
-              <input type="checkbox" required />
-              <label>
-                Соглашаюсь с правилами пользования торговой площадки и доставки
-              </label>
-            </div>
+           
           </div>
         </div>
       ) : (

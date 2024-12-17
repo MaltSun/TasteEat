@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./CreateDish.css"; // Убедитесь, что у вас есть правильный путь к стилям
+import "./CreateDish.css"; 
 
 const CreateDish = ({ onDishCreated, onClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
   const [photo, setPhoto] = useState("");
   const [error, setError] = useState(null);
@@ -18,7 +17,6 @@ const CreateDish = ({ onDishCreated, onClose }) => {
       name,
       description,
       category,
-      weight,
       price,
       photo,
     };
@@ -51,10 +49,9 @@ const CreateDish = ({ onDishCreated, onClose }) => {
     setName("");
     setDescription("");
     setCategory("");
-    setWeight("");
     setPrice("");
     setPhoto("");
-    onClose(); // Закрыть попап
+    onClose(); 
   };
 
   return (
@@ -63,7 +60,7 @@ const CreateDish = ({ onDishCreated, onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h2>New Dish</h2>
+        <h1>New Dish</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name:</label>

@@ -37,12 +37,13 @@ function App() {
         <Route path="/login" element={<Authorization />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/menu" element={<MenuPage />} />
-        <Route element={<PrivateRoute allowedRoles={["delivery"]} />}>
-          <Route path="/delivery" element={<DeliveryPage />} />
-        </Route>
-        <Route element={<PrivateRoute allowedRoles={["user"]} />}></Route>
-        <Route element={<PrivateRoute allowedRoles={["admin"]} />}></Route>
+        <Route path="/delivery" element={<DeliveryPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}></Route>
+        <Route element={<PrivateRoute allowedRoles={["delivery"]} />}></Route>
+        <Route element={<PrivateRoute allowedRoles={["user"]} />}></Route>
+
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

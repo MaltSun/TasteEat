@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  gap: 10px;
 }
 .activeOrderBlock {
   width: 60%;
@@ -11,9 +12,9 @@
 .activeOrderCard {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   background: #c6ab8224;
   justify-content: space-around;
-  flex-direction: row;
   align-items: center;
   padding: 20px 10px;
   box-shadow: 10px 5px 5px #9a867eaf;
@@ -28,4 +29,37 @@
   gap: 20px;
   display: flex;
   flex-direction: column;
+}
+@media screen and (max-width: 955px) {
+  .activeOrder {
+    display: flex;
+    flex-direction: column-reverse;
+    
+  }
+  .active{
+    padding: 20px 8px;
+  }
+  .activeOrderBlock{
+    width: 100%;
+  }
+}
+@media screen and (max-width: 518px) {
+ 
+  
+  .activeOrderCard{
+    flex-direction: column;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 350px) {
+ 
+  
+  .activeOrderCard{
+    flex-direction: column;
+    width: 90%;
+  }
+  .activeOrderCard img{
+    width: 200px;
+    height: 200px;
+  }
 }

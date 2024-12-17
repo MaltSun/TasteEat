@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./CartComponent.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const CartComponent = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -30,11 +32,11 @@ const CartComponent = () => {
       .map((item) => {
         if (item.id === itemId) {
           const newQuantity = (item.quantity || 1) - 1;
-          return newQuantity > 0 ? { ...item, quantity: newQuantity } : null; // Удаляем, если количество 0
+          return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
         }
         return item;
       })
-      .filter((item) => item !== null); 
+      .filter((item) => item !== null);
 
     setCartItems(updatedItems);
     updateSessionStorage(updatedItems);
@@ -70,7 +72,14 @@ const CartComponent = () => {
           </div>
         ))
       ) : (
-        <h2>Your Cart Is Empty</h2>
+        <div className="emptyCart">
+          <img src="./Images/ProfileImage.png" alt="Profile" />
+          <h1>Your Cart Is Empty</h1>
+          <p>Добавьте что-то из меню для заказа</p>
+          <Link className="filleadButton" to={{ pathname: "/menu" }}>
+            Go To Menu
+          </Link>
+        </div>
       )}
     </div>
   );

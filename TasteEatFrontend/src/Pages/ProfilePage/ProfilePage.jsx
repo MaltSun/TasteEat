@@ -23,7 +23,7 @@ const ProfilePage = () => {
         <OrderComponent />
       </div>
       <div className="oldOrder">
-        <h1>Прошлые заказы</h1>
+        <h1>Completed orders</h1>
         <ArrowDropDownIcon fontSize="large" onClick={toggleOldOrders}  />
       </div>
       {showOldOrders && (

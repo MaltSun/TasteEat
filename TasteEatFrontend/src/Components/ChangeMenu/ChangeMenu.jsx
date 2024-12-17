@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ChangeMenu.css"; 
 
-const ChangeMenu = ({ dishId, onDishUpdated }) => {
+const ChangeMenu = ({ dishId, onDishUpdated, onClose }) => {
   const [dishData, setDishData] = useState({
     name: "",
     description: "",
@@ -12,14 +12,12 @@ const ChangeMenu = ({ dishId, onDishUpdated }) => {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const categories = ["Суп", "Основное блюдо", "Десерт", "Напиток"]; // Пример категорий
+  const categories = ["main", "dessert", "drinks", "starter"]; 
 
   useEffect(() => {
     const fetchDish = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/dish/${dishId}`
-        );
+        const response = await fetch(`http://localhost:3000/api/dish/${dishId}`);
         const data = await response.json();
         setDishData(data);
       } catch (error) {
@@ -57,7 +55,7 @@ const ChangeMenu = ({ dishId, onDishUpdated }) => {
       const updatedDish = await response.json();
       setSuccess(`Блюдо "${updatedDish.name}" успешно обновлено!`);
       setError(null);
-      onDishUpdated();
+      onDishUpdated(); // Закрыть модальное окно после обновления
     } catch (error) {
       setError(error.message);
       setSuccess(null);
@@ -65,67 +63,70 @@ const ChangeMenu = ({ dishId, onDishUpdated }) => {
   };
 
   return (
-    <div className="modal">
-      <form onSubmit={handleSubmit}>
-        <h2>Редактировать блюдо</h2>
-        <div>
-          <label>Название:</label>
-          <input
-            type="text"
-            name="name"
-            value={dishData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Фото:</label>
-          <input
-            type="text"
-            name="photo"
-            value={dishData.photo}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Описание:</label>
-          <textarea
-            name="description"
-            value={dishData.description}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Категория:</label>
-          <select
-            name="category"
-            value={dishData.category}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Выберите категорию</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Цена:</label>
-          <input
-            type="number"
-            name="price"
-            value={dishData.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Сохранить изменения</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && <p style={{ color: "green" }}>{success}</p>}
-      </form>
+    <div className="popup">
+      <div className="popup-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <h2>Change dish</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={dishData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Photo:</label>
+            <input
+              type="text"
+              name="photo"
+              value={dishData.photo}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Description:</label>
+            <textarea
+              name="description"
+              value={dishData.description}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Category:</label>
+            <select
+              name="category"
+              value={dishData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Choose category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Price:</label>
+            <input
+              type="number"
+              name="price"
+              value={dishData.price}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Save</button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {success && <p style={{ color: "green" }}>{success}</p>}
+        </form>
+      </div>
     </div>
   );
 };

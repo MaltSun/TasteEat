@@ -32,3 +32,19 @@
   line-height: 1.5;
   margin-top: 10px;
 }
+@media screen and (max-width: 752px) {
+ .comment button{
+  width:120px
+ }
+}
+@media screen and (max-width: 421px) {
+  .comment img{
+    display: none;
+   }
+   .comment{
+    flex-direction: column;
+   }
+   .comment button{
+    width:220px
+   }
+}

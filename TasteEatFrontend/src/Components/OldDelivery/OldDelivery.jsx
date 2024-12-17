@@ -5,7 +5,6 @@ import { selectUserId, selectUserRole } from "../../Store/authStore";
 const OldOrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
   const userId = sessionStorage.getItem('userId'); 
-  //const userRole = useSelector(selectUserRole); // Get user role from Redux store
 
   useEffect(() => {
     const fetchDetails = async () => {

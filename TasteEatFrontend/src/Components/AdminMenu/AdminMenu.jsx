@@ -61,14 +61,14 @@ const AdminMenu = () => {
   const columns = React.useMemo(
     () => [
       { Header: "Position", accessor: "name" },
-      { Header: "Description", accessor: "description", width: 100 },
-      { Header: "Category", accessor: "category" },
+      { Header: "Description", accessor: "description", width: 90 },
+      { Header: "Category", accessor: "category", className: "categoryColumn"},
       { Header: "Price", accessor: "price" },
       {
         Header: "Action",
         accessor: "id",
         Cell: ({ cell }) => (
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap"}}>
            
             <button onClick={() => handleEditDish(cell.value)}>
               <EditNoteIcon />
@@ -138,7 +138,11 @@ const AdminMenu = () => {
       </table>
 
       {editingDishId && (
-        <ChangeMenu dishId={editingDishId} onDishUpdated={handleCloseEdit} />
+        <ChangeMenu
+          dishId={editingDishId}
+          onDishUpdated={handleCloseEdit}
+          onClose={() => setEditingDishId(null)} 
+        />
       )}
 
       {showCreateDish && (

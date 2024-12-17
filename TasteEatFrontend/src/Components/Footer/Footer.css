@@ -47,35 +47,34 @@
 }
 
 input {
-  width: 100%; /* Full width */
-  max-width: 320px; /* Max width for input */
+  width: 100%; 
+  max-width: 320px; 
   height: 65px;
   background: none;
   border: 1px solid #e1b168;
-  padding: 0 10px; /* Add some padding */
+  padding: 0 10px; 
 }
 
 .emailInput {
-  display: flex; /* Flexbox for input and button */
-  gap: 10px; /* Space between input and button */
+  display: flex; 
+  gap: 10px;
 }
 
 .email {
   text-align: center;
-  margin-bottom: 10px; /* Spacing below the email text */
+  margin-bottom: 10px; 
 }
 
 .emailInput:hover {
-  box-shadow: 0 0 5px #292e36; /* Updated box-shadow */
+  box-shadow: 0 0 5px #292e36;
   color: #856a42;
 }
 
 .contoureButton {
-  padding: 10px 20px; /* Button padding */
+  padding: 10px 20px; 
   border: 1px solid #e1b168;
-  background: transparent; /* Transparent background */
-  cursor: pointer; /* Pointer cursor */
-}
+  background: transparent; 
+  cursor: pointer; }
 @media screen and (max-width: 1398px) {
   .footer,
   .footerBlock {
@@ -97,7 +96,9 @@ input {
     flex-direction: column;
     align-items: center;
   }
-
+.footer{
+  padding: 20px 8px;
+}
   .firstBlock,
   .thirdBlock {
     align-items: center;

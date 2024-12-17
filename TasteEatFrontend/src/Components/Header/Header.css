@@ -96,15 +96,18 @@ button {
   .logoSection {
     justify-content: center;
   }
+  .headerSection {
+    padding: 20px 8px;
+  }
 }
 @media screen and (max-width: 370px) {
   .logoSection img {
-    width: 290px;
+    width: 280px;
   }
 }
 @media screen and (max-width: 330px) {
   .headerSection {
-    padding: 20px 10px;
+    padding: 20px 3px;
   }
 }
 

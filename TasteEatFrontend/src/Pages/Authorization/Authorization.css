@@ -35,6 +35,32 @@
   flex-direction: row;
   gap: 20px;
 }
-.authorization h1{
-    color:beige;
+.button, .registration .regButton .button {
+  width: 340px;
+  height: 60px;
+  flex-shrink: 0;
+  background: none;
+  border: 2px solid #e1b168;
+  color: #e1b168;
+  text-align: center;
+  font-family: "Josefin Sans";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 33px;
+  letter-spacing: 0.2px;
+}
+
+.authorization h1 {
+  color: beige;
+}
+@media screen and (max-width: 1025px) {
+  .authorization span {
+    flex-direction: column-reverse;
+  }
+}
+@media screen and (max-width: 548px) {
+  .authorization div, .authorization label, .authorization input, .button, .authorization span Link{
+    width: 90%;
+  }
 }

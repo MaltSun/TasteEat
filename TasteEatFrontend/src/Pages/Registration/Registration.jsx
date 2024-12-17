@@ -17,8 +17,13 @@ const Registration = () => {
   };
 
   const handleRegistration = async () => {
+    if (!username || !email || !password || !confirmPassword || !role) {
+      alert("Please, fill all fields!");
+      return;
+    }
+  
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert("Password do not match!");
       return;
     }
 
@@ -35,20 +40,22 @@ const Registration = () => {
 
     const data = await response.json();
     if (!response.ok) {
-      alert(data.error || "Registration failed");
-
+      alert(data.error || "Ошибка регистрации");
+    } else {
+      console.log("Регистрация успешна!");
+      
       sessionStorage.setItem("username", username);
       sessionStorage.setItem("role", role);
       sessionStorage.setItem("email", email);
-    } else {
-      console.log("Registration successful!");
+      ssessionStorage.setItem("userId", data.id);
+
       navigate("/");
     }
   };
 
   return (
     <div className="registration">
-      <div>
+      <div >
         <h1>Registration</h1>
         <span>
           <input
@@ -96,12 +103,12 @@ const Registration = () => {
           <MenuItem value="deliverer">Deliverer</MenuItem>
         </Select>
 
-        <span>
+        <span className="regButton">
           
-          <Link className="contoureButton" to={"/login"}>
+          <Link className="button" to={"/login"}>
             back To Authorization
           </Link>
-          <button className="contoureButton" onClick={handleRegistration}>
+          <button className="button" onClick={handleRegistration}>
             Register
           </button>
         </span>

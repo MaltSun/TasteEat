@@ -64,25 +64,17 @@ const ProfileComponent = () => {
             <p className="smallText">Username</p>
             <p className="bigText">{data?.username || "Не указано"}</p>
           </div>
-          {/* <div>
-            <p className="smallText">Address</p>
-            <p className="bigText">{data?.address || "Не указано"}</p>
-          </div> */}
           <div>
             <p className="smallText">Email</p>
             <p className="bigText">{data?.email || "Не указано"}</p>
           </div>
-          {/* <div>
-            <p className="smallText">Card</p>
-            <p className="bigText">{data?.card || "Не указано"}</p>
-          </div> */}
         </div>
       </div>
 
       <div className="emailBlock">
         <div>
           <p className="smallText">Need help?</p>
-          <p className="bigText">polinka041022@gmail.com</p>
+          <p className="bigText">polinka0410@gmail.com</p>
         </div>
 
         <button className="contoureButton emailButton">

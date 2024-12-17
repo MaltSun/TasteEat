@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./OrderComponent.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const OrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
@@ -47,7 +48,14 @@ const OrderComponent = ({ customerId }) => {
           </div>
         ))
       ) : (
-        <p>Нет незавершенных заказов.</p> 
+       <div className="emptyCart">
+                 <img src="./Images/ProfileImage.png" alt="Profile" />
+                 <h1>Your Cart Is Empty</h1>
+                 <p>Добавьте что-то из меню для заказа</p>
+                 <Link className="filleadButton" to={{ pathname: "/menu" }}>
+                   Go To Menu
+                 </Link>
+               </div>
       )}
 
       <hr />

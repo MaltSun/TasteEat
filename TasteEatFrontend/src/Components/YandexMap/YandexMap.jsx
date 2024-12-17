@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import "./YandexMap.css"
 const YandexMap = ({ destination }) => {
     useEffect(() => {
         const loadYandexMaps = () => {
@@ -87,7 +87,7 @@ const YandexMap = ({ destination }) => {
         };
     }, [destination]);
 
-    return <div id="map" style={{ width: "500px", height: "300px" }} />;
+    return <div id="map"  className="yandex-map"/>;
 };
 
 export default YandexMap;

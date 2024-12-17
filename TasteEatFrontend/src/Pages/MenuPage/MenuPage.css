@@ -18,3 +18,10 @@
   line-height: 37.5px; /* 150% */
   letter-spacing: 0.25px;
 }
+/* .position {
+  width: 300px;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+} */

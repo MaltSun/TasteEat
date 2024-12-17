@@ -16,7 +16,7 @@ import {
   Slider,
   Typography,
 } from "@mui/material";
-
+import "./MenuPage.css"
 const MenuPage = () => {
   const [isHorizontal, setIsHorizontal] = useState(false);
   const [view, setView] = useState("list");
@@ -76,7 +76,7 @@ const MenuPage = () => {
               valueLabelDisplay="auto"
               min={0}
               max={100}
-              style={{ width: "300px", marginLeft: "20px" }}
+              style={{ width: "200px", marginLeft: "20px" }}
             />
           </MenuItem>
         </Select>
