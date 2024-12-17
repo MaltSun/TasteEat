@@ -11,7 +11,7 @@ exports.createOrder = async (req, res) => {
     const order = await Order.create({
       customerId,
       address,
-      comment, // исправлено с "coment" на "comment"
+      comment, 
       status: "pending",
     });
 
