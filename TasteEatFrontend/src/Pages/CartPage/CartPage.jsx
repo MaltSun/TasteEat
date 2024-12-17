@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import CartComponent from "../../Components/CartComponent/CartComponent";
+import OrderPopup from "../../Components/OrderPopup/OrderPopup"; // Импортируйте попап
 import "./CartPage.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const userId = sessionStorage.getItem("userId");
-  const userRole = sessionStorage.getItem("role"); 
+  const userRole = sessionStorage.getItem("role");
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate(); 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedCartItems =
@@ -17,20 +19,16 @@ const CartPage = () => {
     setCartItems(storedCartItems);
   }, []);
 
-
-
-  const handleOrder = async () => {
+  const handleOrder = () => {
     if (!userId || userRole !== "user") {
-      alert("You don't have a perpiccion! Authorizate firts, please)")
+      alert("You don't have permission! Authorize first, please.");
       navigate("/login");
       return;
     }
+    setIsPopupOpen(true); // Открываем попап
+  };
 
-    alert("Order placed successfully!")
-
-    const address = "User Address";
-    const comment = "Order comment";
-
+  const confirmOrder = async ({ address, comment }) => {
     const orderData = {
       customerId: userId,
       address,
@@ -43,7 +41,6 @@ const CartPage = () => {
 
     try {
       const response = await fetch("http://localhost:3000/api/order", {
-       
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +93,6 @@ const CartPage = () => {
             <button className="filleadButton" onClick={handleOrder}>
               Make An Order
             </button>
-           
           </div>
         </div>
       ) : (
@@ -110,6 +106,12 @@ const CartPage = () => {
         </div>
       )}
       <Footer />
+      {isPopupOpen && (
+        <OrderPopup
+          onClose={() => setIsPopupOpen(false)}
+          onConfirm={confirmOrder}
+        />
+      )}
     </div>
   );
 };
