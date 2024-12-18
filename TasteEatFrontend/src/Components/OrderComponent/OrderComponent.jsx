@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const OrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
-  const userId = sessionStorage.getItem('userId'); // Changed to sessionStorage
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
+    const PORT = import.meta.env.VITE_PORT;
     const fetchOrderDetails = async () => {
       if (!userId) {
         console.error("User ID not found in sessionStorage");
@@ -15,7 +16,7 @@ const OrderComponent = ({ customerId }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/uncompleted/customer/${userId}`
+          `http://localhost:${PORT}/api/order/uncompleted/customer/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");

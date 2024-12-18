@@ -12,7 +12,9 @@ const AdminMenu = () => {
   const [showCreateDish, setShowCreateDish] = useState(false);
 
   const fetchDishes = () => {
-    fetch("http://localhost:3000/api/dish/resource")
+    const PORT = import.meta.env.VITE_PORT;
+
+    fetch(`http://localhost:${PORT}/api/dish/resource`)
       .then((response) => response.json())
       .then((jsonData) => {
         if (Array.isArray(jsonData)) {
@@ -26,9 +28,11 @@ const AdminMenu = () => {
   };
 
   const deleteDish = async (dishId) => {
+    const PORT = import.meta.env.VITE_PORT;
+
     if (!window.confirm("Do you really want to delete this dish?")) return;
     try {
-      const response = await fetch(`http://localhost:3000/api/dish/${dishId}`, {
+      const response = await fetch(`http://localhost:${PORT}/api/dish/${dishId}`, {
         method: "DELETE",
       });
       if (!response.ok) {

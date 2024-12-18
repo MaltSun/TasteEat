@@ -7,7 +7,9 @@ const AdminReview = () => {
   const [error, setError] = useState(null);
 
   const fetchData = () => {
-    fetch("http://localhost:3000/api/review/resource")
+    const PORT = import.meta.env.VITE_PORT;
+
+    fetch(`http://localhost:${PORT}/api/review/resource`)
       .then((response) => response.json())
       .then((jsonData) => {
         if (Array.isArray(jsonData)) {
@@ -21,10 +23,11 @@ const AdminReview = () => {
   };
 
   const deleteReview = async (reviewId) => {
+    const PORT = import.meta.env.VITE_PORT; 
     if (window.confirm("Вы уверены, что хотите удалить этот отзыв?")) {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/review/${reviewId}`,
+          `http://localhost:${PORT}/api/review/${reviewId}`,
           {
             method: "DELETE",
             headers: {

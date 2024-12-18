@@ -20,9 +20,9 @@ const CreateDish = ({ onDishCreated, onClose }) => {
       price,
       photo,
     };
-
+    const PORT = import.meta.env.VITE_PORT;
     try {
-      const response = await fetch("http://localhost:3000/api/dish/new", {
+      const response = await fetch(`http://localhost:${PORT}/api/dish/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

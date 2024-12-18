@@ -3,7 +3,6 @@ import MainPage from "./Pages/MainPage/MainPage";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MenuPage from "./Pages/MenuPage/MenuPage";
-import OrderPage from "./Pages/OrderPage/OrderPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import AdminPage from "./Pages/AdminPage/AdminPage";

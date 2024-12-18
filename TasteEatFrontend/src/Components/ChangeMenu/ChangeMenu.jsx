@@ -16,8 +16,9 @@ const ChangeMenu = ({ dishId, onDishUpdated, onClose }) => {
 
   useEffect(() => {
     const fetchDish = async () => {
+      const PORT = import.meta.env.VITE_PORT; 
       try {
-        const response = await fetch(`http://localhost:3000/api/dish/${dishId}`);
+        const response = await fetch(`http://localhost:${PORT}/api/dish/${dishId}`);
         const data = await response.json();
         setDishData(data);
       } catch (error) {
@@ -38,9 +39,9 @@ const ChangeMenu = ({ dishId, onDishUpdated, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const PORT = import.meta.env.VITE_PORT;
     try {
-      const response = await fetch(`http://localhost:3000/api/dish/${dishId}`, {
+      const response = await fetch(`http://localhost:${PORT}/api/dish/${dishId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +56,7 @@ const ChangeMenu = ({ dishId, onDishUpdated, onClose }) => {
       const updatedDish = await response.json();
       setSuccess(`Блюдо "${updatedDish.name}" успешно обновлено!`);
       setError(null);
-      onDishUpdated(); // Закрыть модальное окно после обновления
+      onDishUpdated(); 
     } catch (error) {
       setError(error.message);
       setSuccess(null);

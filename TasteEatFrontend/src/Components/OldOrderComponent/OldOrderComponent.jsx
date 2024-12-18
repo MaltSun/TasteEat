@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectUserId } from "../../Store/authStore"; // Adjusted import
 import "./OldOrderComponent.css";
 import jsPDF from "jspdf";
 
 const OldOrderComponent = ({ customerId }) => {
   const [orders, setOrders] = useState([]);
-  const userId = sessionStorage.getItem('userId'); // Changed to sessionStorage
+  const userId = sessionStorage.getItem('userId'); 
 
   useEffect(() => {
+    const PORT = import.meta.env.VITE_PORT;
     const fetchDetails = async () => {
       if (!userId) {
         console.error("User ID not found in sessionStorage");
@@ -17,7 +17,7 @@ const OldOrderComponent = ({ customerId }) => {
       
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/completed/customer/${userId}`
+          `http://localhost:${PORT}/api/order/completed/customer/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");

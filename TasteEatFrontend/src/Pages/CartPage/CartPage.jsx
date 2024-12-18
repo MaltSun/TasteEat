@@ -25,7 +25,7 @@ const CartPage = () => {
       navigate("/login");
       return;
     }
-    setIsPopupOpen(true); // Открываем попап
+    setIsPopupOpen(true); 
   };
 
   const confirmOrder = async ({ address, comment }) => {
@@ -38,9 +38,9 @@ const CartPage = () => {
         quantity: item.quantity || 1,
       })),
     };
-
+    const PORT = import.meta.env.VITE_PORT;
     try {
-      const response = await fetch("http://localhost:3000/api/order", {
+      const response = await fetch(`http://localhost:${PORT}/api/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

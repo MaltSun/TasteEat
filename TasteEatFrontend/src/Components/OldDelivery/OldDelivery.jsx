@@ -7,6 +7,7 @@ const OldOrderComponent = ({ customerId }) => {
   const userId = sessionStorage.getItem('userId'); 
 
   useEffect(() => {
+    const PORT = import.meta.env.VITE_PORT;
     const fetchDetails = async () => {
       if (!userId) {
         console.error("User ID not found in sessionStorage");
@@ -15,7 +16,7 @@ const OldOrderComponent = ({ customerId }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/completed/deliverer/${userId}`
+          `http://localhost:${PORT}/api/order/completed/deliverer/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");

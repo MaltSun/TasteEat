@@ -15,9 +15,10 @@ const ReviewCard = () => {
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-
+    const PORT = import.meta.env.VITE_PORT;
+    
     window.addEventListener("resize", handleResize);
-    fetch("http://localhost:3000/api/review/resource")
+    fetch(`http://localhost:${PORT}/api/review/resource`)
       .then((response) => response.json())
       .then((jsonData) => {
         if (Array.isArray(jsonData)) {

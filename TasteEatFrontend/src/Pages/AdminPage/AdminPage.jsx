@@ -3,14 +3,9 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ProfileCard from "../../Components/ProfileComponent/ProfileComponent";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import CreateDish from "../../Components/CreateDish/CreateDish";
-import ChangeMenu from "../../Components/ChangeMenu/ChangeMenu";
 import AdminReview from "../../Components/AdminReview/AdminReview";
 import AdminMenu from "../../Components/AdminMenu/AdminMenu";
 import jsPDF from "jspdf";
-import SalesChart from "../../Components/SalesCharts/SalesCharts";
 import { useTable, useSortBy, usePagination } from "react-table";
 import "./AdminPage.css";
 const AdminPage = () => {
@@ -21,7 +16,8 @@ const AdminPage = () => {
   const [editingDishId, setEditingDishId] = useState(null);
 
   const fetchDishes = () => {
-    fetch("http://localhost:3000/api/dish/resource")
+    const PORT = import.meta.env.VITE_PORT; 
+    fetch(`http://localhost:${PORT}/api/dish/resource`)
       .then((response) => response.json())
       .then((jsonData) => {
         if (Array.isArray(jsonData)) {
@@ -35,7 +31,8 @@ const AdminPage = () => {
   };
 
   const fetchOrders = () => {
-    fetch("http://localhost:3000/api/order/")
+    const PORT = import.meta.env.VITE_PORT;
+    fetch(`http://localhost:${PORT}/api/order/`)
       .then((response) => response.json())
       .then((jsonData) => {
         if (Array.isArray(jsonData)) {
@@ -123,8 +120,7 @@ const AdminPage = () => {
     <div className="adminPage">
       <Header />
       <ProfileCard />
-      {/* <SalesChart salesData={salesData} /> */}
-
+      
       <div className="text">
         <h1>View Menu</h1>
         <ArrowDropDownIcon fontSize="large" onClick={toggleMenu} />

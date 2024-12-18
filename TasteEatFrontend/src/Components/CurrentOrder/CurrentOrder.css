@@ -1,6 +1,17 @@
-.currentOrder {
+.currentOrders {
   width: 1440px;
-  padding: 0px 10px 20px;
+  padding: 0px 0px 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: #fff8f5;
+}
+.currentOrder {
+  width: 1420px;
+  padding: 0px 8px 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -55,7 +66,7 @@ p {
 }
 
 @media screen and (max-width: 1438px) {
-  .currentOrder {
+  .currentOrder, .currentOrders{
     width: 100%;
   }
 }

@@ -23,9 +23,10 @@ const Authorization = () => {
       alert("Please enter a valid email address.");
       return;
     }
+    const PORT = import.meta.env.VITE_PORT;
 
-    const response = await fetch(
-      "http://localhost:3000/api/authorization/login",
+    const response = await fetch(      
+      `http://localhost:${PORT}/api/authorization/login`,
       {
         method: "POST",
         headers: {

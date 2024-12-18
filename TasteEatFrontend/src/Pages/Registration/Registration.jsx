@@ -17,18 +17,34 @@ const Registration = () => {
   };
 
   const handleRegistration = async () => {
+    // Проверка на заполненность всех полей
     if (!username || !email || !password || !confirmPassword || !role) {
-      alert("Please, fill all fields!");
+      alert("Пожалуйста, заполните все поля!");
       return;
     }
   
+    // Проверка на совпадение паролей
     if (password !== confirmPassword) {
-      alert("Password do not match!");
+      alert("Пароли не совпадают!");
       return;
     }
-
+  
+    // Валидация email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Введите корректный адрес электронной почты!");
+      return;
+    }
+  
+    // Валидация пароля (например, минимум 6 символов)
+    if (password.length < 6) {
+      alert("Пароль должен содержать минимум 6 символов!");
+      return;
+    }
+  
+    const PORT = import.meta.env.VITE_PORT;
     const response = await fetch(
-      "http://localhost:3000/api/authorization/register",
+      `http://localhost:${PORT}/api/authorization/register`,
       {
         method: "POST",
         headers: {
@@ -37,7 +53,7 @@ const Registration = () => {
         body: JSON.stringify({ username, password, role, email }),
       }
     );
-
+  
     const data = await response.json();
     if (!response.ok) {
       alert(data.error || "Ошибка регистрации");
@@ -47,8 +63,8 @@ const Registration = () => {
       sessionStorage.setItem("username", username);
       sessionStorage.setItem("role", role);
       sessionStorage.setItem("email", email);
-      ssessionStorage.setItem("userId", data.id);
-
+      sessionStorage.setItem("userId", data.id);
+  
       navigate("/");
     }
   };

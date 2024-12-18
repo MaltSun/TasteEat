@@ -3,6 +3,7 @@ import "./YandexMap.css"
 const YandexMap = ({ destination }) => {
     useEffect(() => {
         const loadYandexMaps = () => {
+            
             if (window.ymaps) {
                 init();
             } else {

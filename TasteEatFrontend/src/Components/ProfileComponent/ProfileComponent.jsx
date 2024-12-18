@@ -11,15 +11,16 @@ const ProfileComponent = () => {
     const role = sessionStorage.getItem("role");
 
     const fetchData = async () => {
+      const PORT = import.meta.env.VITE_PORT; 
       try {
         let response;
         if (role === "deliverer") {
           response = await fetch(
-            `http://localhost:3000/api/deliverers/${userId}`
+            `http://localhost:${PORT}/api/deliverers/${userId}`
           );
         } else {
           response = await fetch(
-            `http://localhost:3000/api/customer/${userId}`
+            `http://localhost:${PORT}/api/customer/${userId}`
           );
         }
 

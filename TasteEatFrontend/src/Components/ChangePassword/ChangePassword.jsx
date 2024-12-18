@@ -11,7 +11,7 @@ const ChangePassword = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const PORT = import.meta.env.VITE_PORT;
     if (newPassword !== confirmPassword) {
       setError("Пароли не совпадают");
       return;
@@ -27,7 +27,7 @@ const ChangePassword = ({ isOpen, onClose }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/authorization/change",
+        `http://localhost:${PORT}/api/authorization/change`,
         {
           method: "PUT",
           headers: {

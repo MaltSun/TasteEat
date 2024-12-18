@@ -10,9 +10,11 @@ const CurrentOrder = ({ deliveryId }) => {
   }, [deliveryId]);
 
   const fetchDetails = async () => {
+    const PORT = import.meta.env.VITE_PORT;
+
     try {
       const response = await fetch(
-        `http://localhost:3000/api/order/current/deliverer/`
+        `http://localhost:${PORT}/api/order/current/deliverer/`
       );
       if (!response.ok) {
         throw new Error("Ошибка при получении заказа");
@@ -25,9 +27,10 @@ const CurrentOrder = ({ deliveryId }) => {
   };
 
   const acceptOrder = async (orderId, userId) => {
+    const PORT = import.meta.env.VITE_PORT;
     try {
       const response = await fetch(
-        `http://localhost:3000/api/order/accept/${orderId}/${userId}`,
+        `http://localhost:${PORT}/api/order/accept/${orderId}/${userId}`,
         {
           method: "PATCH",
           headers: {
@@ -47,7 +50,7 @@ const CurrentOrder = ({ deliveryId }) => {
   };
 
   return (
-    <div className="currentOrder">
+    <div className="currentOrders">
       {orders.length > 0 ? (
         orders.map((order) => (
           <div className="currentCard" key={order.id}>

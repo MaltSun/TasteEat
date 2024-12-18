@@ -20,9 +20,10 @@ const DeliveryPage = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
+      const PORT = import.meta.env.VITE_PORT;
       try {
         const response = await fetch(
-          `http://localhost:3000/api/order/active/${userId}`
+          `http://localhost:${PORT}/api/order/active/${userId}`
         );
         if (!response.ok) {
           throw new Error("Ошибка при получении заказа");

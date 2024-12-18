@@ -6,6 +6,8 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
   const [orders, setOrders] = useState(initialOrders || []);
   const userId = sessionStorage.getItem("userId");
 
+  const PORT = import.meta.env.VITE_PORT;
+
   useEffect(() => {
     setOrders(initialOrders || []);
   }, [initialOrders]);
@@ -13,7 +15,7 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
   const deleteOrder = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/order/delete/${orderId}`,
+        `http://localhost:${PORT}/api/order/delete/${orderId}`,
         {
           method: "PATCH",
           headers: {
@@ -30,7 +32,7 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
       );
 
       if (orders.length === 1) {
-        onOrderComplete(); 
+        onOrderComplete();
       }
     } catch (error) {
       console.error(error);
@@ -53,11 +55,11 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
       }
       const updatedOrder = await response.json();
       setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.id !== updatedOrder.id) 
+        prevOrders.filter((order) => order.id !== updatedOrder.id)
       );
 
       if (orders.length === 1) {
-        onOrderComplete(); 
+        onOrderComplete();
       }
     } catch (error) {
       console.error(error);
@@ -71,10 +73,16 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
           <div className="mapBlock">
             <YandexMap destination={orders[0].address} />
             <h2>Address: {orders[0].address}</h2>
-            <button className="filleadButton" onClick={() => completeOrder(orders[0].id)}>
+            <button
+              className="filleadButton"
+              onClick={() => completeOrder(orders[0].id)}
+            >
               Complete An Order
             </button>
-            <button className="filleadButton" onClick={() => deleteOrder(orders[0].id)}>
+            <button
+              className="filleadButton"
+              onClick={() => deleteOrder(orders[0].id)}
+            >
               Delete An Order
             </button>
           </div>
@@ -97,7 +105,9 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
                       <p>{dish.name}</p>
                       <p>× {dish.OrderDish.quantity}</p>
                     </div>
-                    <h2>${(dish.price * dish.OrderDish.quantity).toFixed(2)}</h2>
+                    <h2>
+                      ${(dish.price * dish.OrderDish.quantity).toFixed(2)}
+                    </h2>
                   </div>
                 ))}
                 <hr />
@@ -107,7 +117,7 @@ const ActiveOrder = ({ orders: initialOrders, onOrderComplete }) => {
           })}
         </>
       ) : (
-        <p>Все заказы завершены.</p> 
+        <p>Все заказы завершены.</p>
       )}
     </div>
   );

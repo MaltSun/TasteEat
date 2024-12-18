@@ -7,7 +7,8 @@ const CommentCard = () => {
   let userId = 0;
 
   const sendMessage = () => {
-    fetch("http://localhost:3000/api/review/new", {
+    const PORT = import.meta.env.VITE_PORT;
+    fetch(`http://localhost:${PORT}/api/review/new`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
