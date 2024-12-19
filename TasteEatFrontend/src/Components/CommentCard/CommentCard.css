@@ -24,6 +24,11 @@
   border-radius: 50%;
   object-fit: cover;
 }
+.commentPhoto {
+  width: 45px;
+  height: 45px;
+  border-radius: 20px;
+}
 .reviewText {
   color: #e0e0e0;
   font-family: "Cormorant Infant", serif;
@@ -33,18 +38,18 @@
   margin-top: 10px;
 }
 @media screen and (max-width: 752px) {
- .comment button{
-  width:120px
- }
+  .comment button {
+    width: 120px;
+  }
 }
 @media screen and (max-width: 421px) {
-  .comment img{
+  .comment img {
     display: none;
-   }
-   .comment{
+  }
+  .comment {
     flex-direction: column;
-   }
-   .comment button{
-    width:220px
-   }
+  }
+  .comment button {
+    width: 220px;
+  }
 }

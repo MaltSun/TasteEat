@@ -34,7 +34,7 @@ const CommentCard = () => {
 
   return (
     <div className="comment">
-      <img src="" alt="photo" />
+      <img className="commentPhoto" src="./public/Images/defoltUser.png" alt="photo" />
 
       <input
         className="reviewText"
