@@ -43,7 +43,7 @@ const MenuPage = () => {
       <Header />
       <SaleCard />
 
-      <div className="position">
+      <div className="filters">
         <ArtTrackIcon
           onClick={() => setIsHorizontal(true)}
           style={{ cursor: "pointer", marginRight: "10px" }}

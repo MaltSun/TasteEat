@@ -70,7 +70,8 @@
   letter-spacing: 0.2px;
   background: #e1b168;
   color: #2a2d34;
-  font-weight: 400;
+  font-size: 25px;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1438px) {

@@ -62,8 +62,8 @@ const ReviewCard = () => {
             ))}
           </Slider>
           <div className="carouselControls">
-            <ButtonBack className="carouselButton">back</ButtonBack>
-            <ButtonNext className="carouselButton">front</ButtonNext>
+            <ButtonBack className="carouselButton">prev</ButtonBack>
+            <ButtonNext className="carouselButton">next</ButtonNext>
           </div>
         </CarouselProvider>
       }

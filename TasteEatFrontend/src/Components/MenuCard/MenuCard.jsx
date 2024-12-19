@@ -18,6 +18,8 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
     sessionStorage.setItem("cartItems", JSON.stringify(items));
   };
 
+  
+
   const handleAddToCart = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
     if (existingItem) {
@@ -67,6 +69,7 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   };
 
   return (
+    
     <div className="menuSection">
       <h2 className="titleUnder">{title}</h2>
       <div className="menuCategory">
@@ -126,9 +129,10 @@ const MenuCategory = ({ title, items, isHorizontal }) => {
   );
 };
 
-const MenuCard = ({ isHorizontal }) => {
+const MenuCard = ({ isHorizontal, category, priceRange }) => {
   const dispatch = useDispatch();
   const { starters, mains, drinks, desserts } = useSelector(selectMenuData);
+  const [filteredData, setFilteredData] = useState({ starters, mains, drinks, desserts });
 
   useEffect(() => {
     const PORT = import.meta.env.VITE_PORT;
@@ -150,24 +154,55 @@ const MenuCard = ({ isHorizontal }) => {
       .catch((error) => console.error("Error fetching data:", error));
   }, [dispatch]);
 
+  useEffect(() => {
+    const filterItems = () => {
+      const allItems = { starters, mains, drinks, desserts };
+      const newFilteredData = {};
+
+      for (const [key, items] of Object.entries(allItems)) {
+        newFilteredData[key] = items.filter(item => {
+          const inCategory = category ? item.category === category : true;
+          const inPriceRange = item.price >= priceRange[0] && item.price <= priceRange[1];
+          return inCategory && inPriceRange;
+        });
+      }
+
+      setFilteredData(newFilteredData);
+    };
+
+    filterItems();
+  }, [category, priceRange, starters, mains, drinks, desserts]);
+
   return (
     <div className="menuCard">
-      <MenuCategory
-        title="Starters"
-        items={starters}
-        isHorizontal={isHorizontal}
-      />
-      <MenuCategory
-        title="Main Dishes"
-        items={mains}
-        isHorizontal={isHorizontal}
-      />
-      <MenuCategory title="Drinks" items={drinks} isHorizontal={isHorizontal} />
-      <MenuCategory
-        title="Desserts"
-        items={desserts}
-        isHorizontal={isHorizontal}
-      />
+     {filteredData.starters.length > 0 && (
+        <MenuCategory
+          title="Starters"
+          items={filteredData.starters}
+          isHorizontal={isHorizontal}
+        />
+      )}
+      {filteredData.mains.length > 0 && (
+        <MenuCategory
+          title="Main Dishes"
+          items={filteredData.mains}
+          isHorizontal={isHorizontal}
+        />
+      )}
+      {filteredData.drinks.length > 0 && (
+        <MenuCategory
+          title="Drinks"
+          items={filteredData.drinks}
+          isHorizontal={isHorizontal}
+        />
+      )}
+      {filteredData.desserts.length > 0 && (
+        <MenuCategory
+          title="Desserts"
+          items={filteredData.desserts}
+          isHorizontal={isHorizontal}
+        />
+      )}
     </div>
   );
 };
