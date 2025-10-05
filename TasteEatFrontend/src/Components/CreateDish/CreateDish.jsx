@@ -60,7 +60,7 @@ const CreateDish = ({ onDishCreated, onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h1>New Dish</h1>
+         <h1>New Dish</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name:</label>

@@ -1,0 +1,12 @@
+Данное программное обеспечение доступно под следующими лицензиями:
+
+1. GNU GENERAL PUBLIC LICENSE Version 3 (GPL-3.0)
+2. GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (AGPL-3.0) 
+3. MIT LICENSE
+
+Пользователь может выбрать любую из этих лицензий для использования данного ПО.
+
+Полные тексты лицензий находятся в папке LICENSES/:
+- GPL-3.0.txt
+- AGPL-3.0.txt  
+- MIT.txt
