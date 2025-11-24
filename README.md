@@ -21,12 +21,12 @@ TasteEat is a full-stack web application for food delivery services built with m
 
 ## Quick Start
 
-### 1. Clone and Setup
+### Clone and Setup
 
 git clone https://github.com/MaltSun/TasteEat.git
 cd TasteEat
 
-### 1. Deploy Application
+### Deploy Application
 
 # Build and start all services
 
@@ -36,7 +36,7 @@ docker-compose up -d --build
 
 docker-compose up -d
 
-## Verify Deployment
+### Verify Deployment
 
 # Check container status
 
