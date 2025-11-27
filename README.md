@@ -77,7 +77,7 @@ curl http://localhost:3000/api/health
 ## Резервное копирование
 ### Создание резервной копии в SQL формате
 docker-compose exec -T postgres pg_dump -U postgres -d TasteEat --format=plain > backup_$(date +%Y%m%d).sql
-# Использование предоставленного скрипта (Windows)
+### Использование предоставленного скрипта (Windows)
 .\restore-db.bat
 
 ## Устранение неисправностей
